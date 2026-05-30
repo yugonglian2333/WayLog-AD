@@ -1,6 +1,7 @@
 # 一路记 WayLog 官网
 
 这是一个用于微信开放平台审核和应用信息展示的极简静态官网项目。
+网址：https://gogogo-tawny.vercel.app/
 
 ## 文件
 
