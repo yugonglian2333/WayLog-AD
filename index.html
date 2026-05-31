@@ -8,6 +8,8 @@
       name="description"
       content="一路记（WayLog）是一个个人旅行中枢，帮你把旅行计划、每日行程、地点收藏、预算记录和重要备忘收拢到一个地方。"
     />
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
+    <link rel="apple-touch-icon" href="icon.png" />
     <style>
       /* ===== Reset & Base ===== */
       *,
@@ -709,7 +711,17 @@
     <!-- Navigation -->
     <nav class="nav" id="nav">
       <div class="nav-inner">
-        <a href="#" class="nav-logo"> <span>🗺️</span> 一路记 </a>
+        <a href="#" class="nav-logo">
+          <img
+            src="icon.png"
+            alt="一路记"
+            onerror="
+              this.style.display = 'none';
+              this.nextElementSibling.style.display = 'inline';
+            "
+          />
+          <span style="display: none">🗺️</span> 一路记
+        </a>
         <ul class="nav-links">
           <li><a href="#features">功能</a></li>
           <li><a href="#tech">技术</a></li>
@@ -767,8 +779,17 @@
               <span class="mockup-label">旅行计划</span>
             </div>
             <div class="mockup-card">
-              <span class="mockup-icon">📍</span>
-              <span class="mockup-label">地点收藏</span>
+              <img
+                src="icon.png"
+                alt="一路记"
+                style="
+                  width: 64px;
+                  height: 64px;
+                  border-radius: 16px;
+                  margin-bottom: 0.5rem;
+                "
+              />
+              <span class="mockup-label">一路记</span>
             </div>
             <div class="mockup-card">
               <span class="mockup-icon">📋</span>
