@@ -543,7 +543,7 @@
         height: 80px;
       }
       .section-divider--dark-reverse {
-        background: #000;
+        background: #f5f5f7;
       }
       .section-divider--dark-reverse svg {
         height: 80px;
@@ -759,15 +759,25 @@
           opacity: 1;
         }
       }
+      .showcase .section-inner {
+        position: relative;
+        z-index: 1;
+      }
       .showcase .section-label {
         color: rgba(255, 255, 255, 0.7);
+        position: relative;
+        z-index: 1;
       }
       .showcase .section-title {
         color: #fff;
+        position: relative;
+        z-index: 1;
       }
       .showcase .section-desc {
         color: rgba(255, 255, 255, 0.6);
         margin: 0 auto;
+        position: relative;
+        z-index: 1;
       }
       .showcase-grid {
         display: grid;
@@ -795,10 +805,14 @@
         font-size: 3rem;
         font-weight: 700;
         letter-spacing: -0.03em;
+        color: #fff;
+      }
+      .showcase-stat .num.count {
         background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.7) 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
+        color: transparent;
       }
       .showcase-stat .label {
         color: rgba(255, 255, 255, 0.6);
@@ -1271,19 +1285,19 @@
         </p>
         <div class="showcase-grid">
           <div class="showcase-stat">
-            <div class="num" data-target="3" data-suffix="">0</div>
+            <div class="num count" data-target="3" data-suffix="">0</div>
             <div class="label">平台覆盖（iOS · Android · Web）</div>
           </div>
           <div class="showcase-stat">
-            <div class="num" data-target="100" data-suffix="%">0</div>
+            <div class="num count" data-target="100" data-suffix="%">0</div>
             <div class="label">TypeScript 类型覆盖</div>
           </div>
           <div class="showcase-stat">
-            <div class="num">云同步</div>
+            <div class="num text-stat">云同步</div>
             <div class="label">Supabase 驱动的数据同步</div>
           </div>
           <div class="showcase-stat">
-            <div class="num">开源</div>
+            <div class="num text-stat">开源</div>
             <div class="label">MIT 协议，代码完全开放</div>
           </div>
         </div>
@@ -1293,7 +1307,7 @@
     <!-- Showcase → Tech divider -->
     <div class="section-divider section-divider--dark-reverse">
       <svg viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true">
-        <path d="M0,80 C360,40 720,0 1440,60 L1440,0 L0,0 Z" fill="#f5f5f7" />
+        <path d="M0,60 C480,90 960,20 1440,80 L1440,0 L0,0 Z" fill="#000" />
       </svg>
     </div>
 
@@ -1510,14 +1524,26 @@
             if (!entry.isIntersecting) return;
 
             const numEl = entry.target.querySelector(".num");
+            const labelEl = entry.target.querySelector(".label");
             const target = parseFloat(numEl?.getAttribute("data-target"));
             const suffix = numEl?.getAttribute("data-suffix") || "";
+
+            // Show label
+            if (labelEl) {
+              labelEl.style.transition =
+                "opacity 0.6s 0.3s, transform 0.6s 0.3s";
+              labelEl.style.opacity = "1";
+              labelEl.style.transform = "translateY(0)";
+            }
 
             if (!isNaN(target)) {
               // Numeric counter with ease-out-expo deceleration
               const duration = 1800;
               const start = performance.now();
               const startVal = 0;
+
+              numEl.style.opacity = "1";
+              numEl.style.transform = "translateY(0)";
 
               function update(now) {
                 const elapsed = now - start;
@@ -1543,19 +1569,10 @@
               numEl.style.transform = "translateY(0)";
             }
 
-            // Fade in the label
-            const labelEl = entry.target.querySelector(".label");
-            if (labelEl) {
-              labelEl.style.transition =
-                "opacity 0.6s 0.3s, transform 0.6s 0.3s";
-              labelEl.style.opacity = "1";
-              labelEl.style.transform = "translateY(0)";
-            }
-
             counterObserver.unobserve(entry.target);
           });
         },
-        { threshold: 0.4 },
+        { threshold: 0.3 },
       );
 
       document.querySelectorAll(".showcase-stat").forEach((el) => {
@@ -1571,6 +1588,42 @@
         }
         counterObserver.observe(el);
       });
+
+      // Fallback: if showcase stats haven't been revealed after 2s, show them anyway
+      setTimeout(() => {
+        document.querySelectorAll(".showcase-stat").forEach((el) => {
+          const numEl = el.querySelector(".num");
+          const labelEl = el.querySelector(".label");
+          if (numEl && numEl.style.opacity === "0") {
+            numEl.style.transition =
+              "opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)";
+            numEl.style.opacity = "1";
+            numEl.style.transform = "translateY(0)";
+            // Trigger counter for numeric stats
+            const target = parseFloat(numEl.getAttribute("data-target"));
+            const suffix = numEl.getAttribute("data-suffix") || "";
+            if (!isNaN(target)) {
+              const duration = 1800;
+              const start = performance.now();
+              function update(now) {
+                const elapsed = now - start;
+                const progress = Math.min(elapsed / duration, 1);
+                const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+                const current = Math.floor((target) * eased);
+                numEl.textContent = current + suffix;
+                if (progress < 1) requestAnimationFrame(update);
+              }
+              requestAnimationFrame(update);
+            }
+          }
+          if (labelEl && labelEl.style.opacity === "0") {
+            labelEl.style.transition =
+              "opacity 0.6s 0.3s, transform 0.6s 0.3s";
+            labelEl.style.opacity = "1";
+            labelEl.style.transform = "translateY(0)";
+          }
+        });
+      }, 2500);
     </script>
   </body>
 </html>
