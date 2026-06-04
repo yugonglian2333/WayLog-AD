@@ -128,7 +128,9 @@
         right: 0;
         z-index: 100;
         padding: 0 2rem;
-        transition: background 0.3s var(--ease-smooth), box-shadow 0.3s var(--ease-smooth);
+        transition:
+          background 0.3s var(--ease-smooth),
+          box-shadow 0.3s var(--ease-smooth);
       }
       .nav.scrolled {
         background: rgba(250, 249, 245, 0.85);
@@ -174,8 +176,8 @@
         transition: color 0.25s;
         letter-spacing: -0.01em;
         font-family:
-          -apple-system, BlinkMacSystemFont, "SF Pro Text",
-          "PingFang SC", "Noto Sans SC", sans-serif;
+          -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC",
+          "Noto Sans SC", sans-serif;
       }
       .nav-links a:hover {
         color: var(--ink);
@@ -187,7 +189,9 @@
         border-radius: var(--radius-pill);
         font-weight: 600 !important;
         font-size: 0.8rem !important;
-        transition: background 0.3s, transform 0.3s var(--ease-spring) !important;
+        transition:
+          background 0.3s,
+          transform 0.3s var(--ease-spring) !important;
       }
       .nav-cta:hover {
         background: var(--coral-hover);
@@ -206,10 +210,26 @@
         overflow: hidden;
         padding: 6rem 2rem 4rem;
         background:
-          radial-gradient(ellipse 80% 60% at 50% 0%, rgba(204,120,92,0.06) 0%, transparent 60%),
-          radial-gradient(ellipse 60% 50% at 85% 25%, rgba(106,155,204,0.05) 0%, transparent 50%),
-          radial-gradient(ellipse 50% 40% at 15% 65%, rgba(120,140,93,0.03) 0%, transparent 50%),
-          radial-gradient(ellipse 70% 30% at 50% 100%, rgba(204,120,92,0.02) 0%, transparent 50%);
+          radial-gradient(
+            ellipse 80% 60% at 50% 0%,
+            rgba(204, 120, 92, 0.06) 0%,
+            transparent 60%
+          ),
+          radial-gradient(
+            ellipse 60% 50% at 85% 25%,
+            rgba(106, 155, 204, 0.05) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            ellipse 50% 40% at 15% 65%,
+            rgba(120, 140, 93, 0.03) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            ellipse 70% 30% at 50% 100%,
+            rgba(204, 120, 92, 0.02) 0%,
+            transparent 50%
+          );
       }
 
       /* Subtle warm ambient shapes */
@@ -220,20 +240,36 @@
         z-index: 0;
       }
       .hero-ambient--1 {
-        width: 600px; height: 600px;
-        background: radial-gradient(circle, rgba(204, 120, 92, 0.06) 0%, transparent 70%);
-        top: -15%; left: -10%;
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(
+          circle,
+          rgba(204, 120, 92, 0.06) 0%,
+          transparent 70%
+        );
+        top: -15%;
+        left: -10%;
         animation: ambientFloat 20s ease-in-out infinite alternate;
       }
       .hero-ambient--2 {
-        width: 450px; height: 450px;
-        background: radial-gradient(circle, rgba(106, 155, 204, 0.05) 0%, transparent 70%);
-        bottom: 10%; right: -8%;
+        width: 450px;
+        height: 450px;
+        background: radial-gradient(
+          circle,
+          rgba(106, 155, 204, 0.05) 0%,
+          transparent 70%
+        );
+        bottom: 10%;
+        right: -8%;
         animation: ambientFloat 24s ease-in-out infinite alternate-reverse;
       }
       @keyframes ambientFloat {
-        0% { transform: translate(0, 0) scale(1); }
-        100% { transform: translate(40px, -30px) scale(1.15); }
+        0% {
+          transform: translate(0, 0) scale(1);
+        }
+        100% {
+          transform: translate(40px, -30px) scale(1.15);
+        }
       }
 
       /* ===== Hero 简笔画 SVG 插图 ===== */
@@ -260,12 +296,22 @@
         animation-play-state: running;
       }
       @keyframes sketchReveal {
-        to { stroke-dashoffset: 0; }
+        to {
+          stroke-dashoffset: 0;
+        }
       }
-      .sketch-delay-1 { animation-delay: 0.3s; }
-      .sketch-delay-2 { animation-delay: 0.65s; }
-      .sketch-delay-3 { animation-delay: 1s; }
-      .sketch-delay-4 { animation-delay: 1.35s; }
+      .sketch-delay-1 {
+        animation-delay: 0.3s;
+      }
+      .sketch-delay-2 {
+        animation-delay: 0.65s;
+      }
+      .sketch-delay-3 {
+        animation-delay: 1s;
+      }
+      .sketch-delay-4 {
+        animation-delay: 1.35s;
+      }
 
       /* 节点渐入 */
       .sketch-dot {
@@ -278,20 +324,33 @@
         animation-play-state: running;
       }
       @keyframes sketchDotIn {
-        0% { opacity: 0; transform: scale(0); }
-        100% { opacity: 1; transform: scale(1); }
+        0% {
+          opacity: 0;
+          transform: scale(0);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
       }
       .sketch-dot-pulse {
         animation: sketchDotPulse 3s ease-in-out infinite;
         animation-delay: 2s;
       }
       @keyframes sketchDotPulse {
-        0%, 100% { opacity: 0.15; }
-        50% { opacity: 0.45; }
+        0%,
+        100% {
+          opacity: 0.15;
+        }
+        50% {
+          opacity: 0.45;
+        }
       }
       /* 响应式：移动端隐藏或缩小 */
       @media (max-width: 768px) {
-        .hero-sketch { opacity: 0.6; }
+        .hero-sketch {
+          opacity: 0.6;
+        }
       }
 
       .hero-content {
@@ -312,7 +371,8 @@
         border-radius: var(--radius-pill);
         margin-bottom: 2.5rem;
         letter-spacing: 0.03em;
-        font-family: "SF Mono", "Cascadia Code", "Fira Code", "JetBrains Mono",
+        font-family:
+          "SF Mono", "Cascadia Code", "Fira Code", "JetBrains Mono",
           "Noto Sans SC", "PingFang SC", monospace;
         box-shadow: none;
         animation: fadeInUp 0.8s ease-out;
@@ -321,15 +381,23 @@
       }
       .hero-badge::before {
         content: "";
-        width: 5px; height: 5px;
+        width: 5px;
+        height: 5px;
         border-radius: 50%;
         background: var(--coral);
         box-shadow: 0 0 6px var(--coral-glow);
         animation: dotPulse 2s ease-in-out infinite;
       }
       @keyframes dotPulse {
-        0%, 100% { opacity: 0.6; transform: scale(1); }
-        50% { opacity: 1; transform: scale(1.3); }
+        0%,
+        100% {
+          opacity: 0.6;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.3);
+        }
       }
       .hero h1 {
         font-size: clamp(2.8rem, 6vw, 4.8rem);
@@ -367,8 +435,13 @@
         animation: cursorBlink 0.8s step-end infinite;
       }
       @keyframes cursorBlink {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0; }
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
       }
       .hero-subtitle {
         font-size: clamp(1.05rem, 2vw, 1.2rem);
@@ -380,8 +453,8 @@
         letter-spacing: -0.01em;
         line-height: 1.75;
         font-family:
-          -apple-system, BlinkMacSystemFont, "SF Pro Text",
-          "PingFang SC", "Noto Sans SC", sans-serif;
+          -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC",
+          "Noto Sans SC", sans-serif;
       }
       .hero-actions {
         display: flex;
@@ -404,8 +477,8 @@
         cursor: pointer;
         border: none;
         font-family:
-          -apple-system, BlinkMacSystemFont, "SF Pro Text",
-          "PingFang SC", "Noto Sans SC", sans-serif;
+          -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC",
+          "Noto Sans SC", sans-serif;
       }
       .btn-primary {
         background: var(--coral);
@@ -449,8 +522,8 @@
         align-items: center;
         gap: 0.55rem;
         font-family:
-          -apple-system, BlinkMacSystemFont, "SF Pro Text",
-          "PingFang SC", "Noto Sans SC", sans-serif;
+          -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC",
+          "Noto Sans SC", sans-serif;
       }
       .section-label::before {
         content: "";
@@ -475,8 +548,8 @@
         line-height: 1.75;
         letter-spacing: -0.01em;
         font-family:
-          -apple-system, BlinkMacSystemFont, "SF Pro Text",
-          "PingFang SC", "Noto Sans SC", sans-serif;
+          -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC",
+          "Noto Sans SC", sans-serif;
       }
 
       /* ===== Section Alternation ===== */
@@ -504,9 +577,16 @@
       .card::after {
         content: "";
         position: absolute;
-        top: 0; left: 8px; right: 8px;
+        top: 0;
+        left: 8px;
+        right: 8px;
         height: 1px;
-        background: linear-gradient(90deg, transparent, rgba(20,20,19,0.04), transparent);
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(20, 20, 19, 0.04),
+          transparent
+        );
         opacity: 0;
         transition: opacity 0.4s var(--ease-smooth);
         pointer-events: none;
@@ -543,10 +623,11 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 52px; height: 52px;
+        width: 52px;
+        height: 52px;
         border-radius: var(--radius-md);
         background: var(--surface-warm);
-        border: 0.5px solid rgba(20,20,19,0.05);
+        border: 0.5px solid rgba(20, 20, 19, 0.05);
       }
       .problem-card h3 {
         font-size: 1.15rem;
@@ -560,8 +641,8 @@
         font-size: 0.92rem;
         line-height: 1.7;
         font-family:
-          -apple-system, BlinkMacSystemFont, "SF Pro Text",
-          "PingFang SC", "Noto Sans SC", sans-serif;
+          -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC",
+          "Noto Sans SC", sans-serif;
       }
 
       /* ===== Features Section ===== */
@@ -594,29 +675,29 @@
         opacity: 0.4;
         pointer-events: none;
       }
-      .feature-icon.coral  {
+      .feature-icon.coral {
         background: var(--coral-light);
       }
       .feature-icon.coral::after {
-        border-color: rgba(204,120,92,0.15);
+        border-color: rgba(204, 120, 92, 0.15);
       }
-      .feature-icon.blue   {
+      .feature-icon.blue {
         background: var(--blue-light);
       }
       .feature-icon.blue::after {
-        border-color: rgba(106,155,204,0.15);
+        border-color: rgba(106, 155, 204, 0.15);
       }
-      .feature-icon.green  {
+      .feature-icon.green {
         background: var(--green-light);
       }
       .feature-icon.green::after {
-        border-color: rgba(120,140,93,0.15);
+        border-color: rgba(120, 140, 93, 0.15);
       }
-      .feature-icon.gray   {
-        background: rgba(20,20,19,0.04);
+      .feature-icon.gray {
+        background: rgba(20, 20, 19, 0.04);
       }
       .feature-icon.gray::after {
-        border-color: rgba(20,20,19,0.08);
+        border-color: rgba(20, 20, 19, 0.08);
       }
       .feature-card h3 {
         font-size: 1.1rem;
@@ -630,8 +711,8 @@
         font-size: 0.9rem;
         line-height: 1.65;
         font-family:
-          -apple-system, BlinkMacSystemFont, "SF Pro Text",
-          "PingFang SC", "Noto Sans SC", sans-serif;
+          -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC",
+          "Noto Sans SC", sans-serif;
       }
 
       /* ===== Architecture Section ===== */
@@ -661,9 +742,16 @@
       .arch-node::after {
         content: "";
         position: absolute;
-        top: 0; left: 12px; right: 12px;
+        top: 0;
+        left: 12px;
+        right: 12px;
         height: 1px;
-        background: linear-gradient(90deg, transparent, rgba(20,20,19,0.04), transparent);
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(20, 20, 19, 0.04),
+          transparent
+        );
         opacity: 0;
         transition: opacity 0.4s var(--ease-smooth);
         pointer-events: none;
@@ -684,7 +772,8 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 48px; height: 48px;
+        width: 48px;
+        height: 48px;
         border-radius: 12px;
         background: var(--surface-warm);
       }
@@ -700,14 +789,15 @@
         color: var(--ink-secondary);
         line-height: 1.55;
         font-family:
-          -apple-system, BlinkMacSystemFont, "SF Pro Text",
-          "PingFang SC", "Noto Sans SC", sans-serif;
+          -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC",
+          "Noto Sans SC", sans-serif;
       }
       .arch-arrow {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 32px; height: 32px;
+        width: 32px;
+        height: 32px;
         flex-shrink: 0;
         color: var(--coral);
         opacity: 0.35;
@@ -729,8 +819,16 @@
         position: absolute;
         inset: 0;
         background:
-          radial-gradient(ellipse at 30% 30%, rgba(204, 120, 92, 0.08) 0%, transparent 50%),
-          radial-gradient(ellipse at 70% 60%, rgba(106, 155, 204, 0.05) 0%, transparent 50%);
+          radial-gradient(
+            ellipse at 30% 30%,
+            rgba(204, 120, 92, 0.08) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            ellipse at 70% 60%,
+            rgba(106, 155, 204, 0.05) 0%,
+            transparent 50%
+          );
         pointer-events: none;
       }
       .showcase .section-inner {
@@ -747,8 +845,8 @@
         color: rgba(250, 249, 245, 0.45);
         margin: 0 auto;
         font-family:
-          -apple-system, BlinkMacSystemFont, "SF Pro Text",
-          "PingFang SC", "Noto Sans SC", sans-serif;
+          -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC",
+          "Noto Sans SC", sans-serif;
       }
       .showcase-grid {
         display: grid;
@@ -776,8 +874,8 @@
         font-size: 0.85rem;
         margin-top: 0.35rem;
         font-family:
-          -apple-system, BlinkMacSystemFont, "SF Pro Text",
-          "PingFang SC", "Noto Sans SC", sans-serif;
+          -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC",
+          "Noto Sans SC", sans-serif;
       }
 
       /* ===== Tech Section ===== */
@@ -811,8 +909,8 @@
         color: var(--ink-secondary);
         font-size: 0.8rem;
         font-family:
-          -apple-system, BlinkMacSystemFont, "SF Pro Text",
-          "PingFang SC", "Noto Sans SC", sans-serif;
+          -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC",
+          "Noto Sans SC", sans-serif;
       }
 
       /* ===== Roadmap Section ===== */
@@ -842,7 +940,9 @@
         border-radius: 50%;
         flex-shrink: 0;
       }
-      .dot.done { background: var(--green); }
+      .dot.done {
+        background: var(--green);
+      }
       .dot.wip {
         background: var(--coral);
         animation: dotPulse 2s ease-in-out infinite;
@@ -856,8 +956,8 @@
         color: var(--ink-secondary);
         transition: color 0.25s;
         font-family:
-          -apple-system, BlinkMacSystemFont, "SF Pro Text",
-          "PingFang SC", "Noto Sans SC", sans-serif;
+          -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC",
+          "Noto Sans SC", sans-serif;
       }
       .roadmap-item:hover {
         color: var(--ink);
@@ -896,12 +996,18 @@
       .download-card::before {
         content: "";
         position: absolute;
-        top: 0; left: 0; right: 0;
+        top: 0;
+        left: 0;
+        right: 0;
         height: 3px;
-        background: linear-gradient(90deg,
-          #e07050 0%, #e07050 12px,
-          #d4a84b 12px, #d4a84b 24px,
-          #6aab73 24px, #6aab73 36px,
+        background: linear-gradient(
+          90deg,
+          #e07050 0%,
+          #e07050 12px,
+          #d4a84b 12px,
+          #d4a84b 24px,
+          #6aab73 24px,
+          #6aab73 36px,
           transparent 36px
         );
         opacity: 0.25;
@@ -916,11 +1022,12 @@
         display: inline-flex;
         align-items: center;
         gap: 0.4rem;
-        background: rgba(20,20,19,0.03);
-        border: 0.5px solid rgba(20,20,19,0.06);
+        background: rgba(20, 20, 19, 0.03);
+        border: 0.5px solid rgba(20, 20, 19, 0.06);
         border-radius: var(--radius-sm);
         padding: 0.55rem 1.15rem;
-        font-family: "SF Mono", "Cascadia Code", "Fira Code", "JetBrains Mono", monospace;
+        font-family:
+          "SF Mono", "Cascadia Code", "Fira Code", "JetBrains Mono", monospace;
         font-size: 0.82rem;
         color: var(--ink-secondary);
         letter-spacing: 0.01em;
@@ -961,8 +1068,8 @@
         font-size: 0.85rem;
         transition: color 0.25s;
         font-family:
-          -apple-system, BlinkMacSystemFont, "SF Pro Text",
-          "PingFang SC", "Noto Sans SC", sans-serif;
+          -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC",
+          "Noto Sans SC", sans-serif;
       }
       .footer-links a:hover {
         color: rgba(250, 249, 245, 0.85);
@@ -971,8 +1078,8 @@
         color: rgba(250, 249, 245, 0.35);
         font-size: 0.8rem;
         font-family:
-          -apple-system, BlinkMacSystemFont, "SF Pro Text",
-          "PingFang SC", "Noto Sans SC", sans-serif;
+          -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC",
+          "Noto Sans SC", sans-serif;
       }
 
       /* ===== Scroll Reveal ===== */
@@ -987,15 +1094,31 @@
         opacity: 1;
         transform: translateY(0);
       }
-      .reveal-delay-1 { transition-delay: 0.06s; }
-      .reveal-delay-2 { transition-delay: 0.12s; }
-      .reveal-delay-3 { transition-delay: 0.18s; }
-      .reveal-delay-4 { transition-delay: 0.24s; }
-      .reveal-delay-5 { transition-delay: 0.3s; }
+      .reveal-delay-1 {
+        transition-delay: 0.06s;
+      }
+      .reveal-delay-2 {
+        transition-delay: 0.12s;
+      }
+      .reveal-delay-3 {
+        transition-delay: 0.18s;
+      }
+      .reveal-delay-4 {
+        transition-delay: 0.24s;
+      }
+      .reveal-delay-5 {
+        transition-delay: 0.3s;
+      }
 
       @keyframes fadeInUp {
-        from { opacity: 0; transform: translateY(24px); }
-        to   { opacity: 1; transform: translateY(0); }
+        from {
+          opacity: 0;
+          transform: translateY(24px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
 
       /* ===== Responsive ===== */
@@ -1069,9 +1192,12 @@
           <img
             src="icon.png"
             alt="一路记"
-            onerror="this.style.display='none';this.nextElementSibling.style.display='inline';"
+            onerror="
+              this.style.display = 'none';
+              this.nextElementSibling.style.display = 'inline';
+            "
           />
-          <span style="display:none">🗺️</span> 一路记
+          <span style="display: none">🗺️</span> 一路记
         </a>
         <ul class="nav-links">
           <li><a href="#features">功能</a></li>
@@ -1088,59 +1214,173 @@
 
       <!-- 简笔画风格 SVG 插图 -->
       <div class="hero-sketch" aria-hidden="true">
-        <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg
+          viewBox="0 0 1440 900"
+          preserveAspectRatio="xMidYMid slice"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
           <!-- 远山轮廓 · 手绘风格 -->
-          <path class="sketch-draw"
+          <path
+            class="sketch-draw"
             d="M0,900 L0,780 Q100,740 180,760 Q280,700 380,730 Q460,680 540,715 Q620,660 700,690 Q780,640 860,675 Q940,620 1020,655 Q1100,610 1180,640 Q1280,590 1360,625 Q1420,600 1440,615 L1440,900 Z"
-            stroke="#cc785c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.12" />
+            stroke="#cc785c"
+            stroke-width="1.6"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            opacity="0.12"
+          />
           <!-- 近山轮廓 -->
-          <path class="sketch-draw sketch-delay-1"
+          <path
+            class="sketch-draw sketch-delay-1"
             d="M0,900 L0,820 Q130,770 250,800 Q370,740 500,780 Q600,730 720,770 Q830,725 960,760 Q1070,720 1200,750 Q1320,705 1440,735 L1440,900 Z"
-            stroke="#c4a35a" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.1" />
+            stroke="#c4a35a"
+            stroke-width="1.2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            opacity="0.1"
+          />
           <!-- 旅行路线 · 虚线 -->
-          <path class="sketch-draw sketch-delay-2"
+          <path
+            class="sketch-draw sketch-delay-2"
             d="M120,750 Q280,700 400,620 Q520,540 640,480 Q720,440 800,360 Q880,280 960,310 Q1040,340 1120,240 Q1200,160 1320,200"
-            stroke="#6a9bcc" stroke-width="1.4" stroke-dasharray="8,16" stroke-linecap="round" opacity="0.18" />
+            stroke="#6a9bcc"
+            stroke-width="1.4"
+            stroke-dasharray="8,16"
+            stroke-linecap="round"
+            opacity="0.18"
+          />
           <!-- 第二路线 -->
-          <path class="sketch-draw sketch-delay-3"
+          <path
+            class="sketch-draw sketch-delay-3"
             d="M80,680 Q200,620 340,550 Q460,490 560,420 Q640,370 720,400 Q800,430 900,370 Q1000,310 1100,340"
-            stroke="#788c5d" stroke-width="1" stroke-dasharray="5,20" stroke-linecap="round" opacity="0.12" />
+            stroke="#788c5d"
+            stroke-width="1"
+            stroke-dasharray="5,20"
+            stroke-linecap="round"
+            opacity="0.12"
+          />
           <!-- 路线节点 1 -->
-          <circle class="sketch-dot sketch-dot-pulse sketch-delay-2" cx="400" cy="620" r="3.5" fill="#cc785c" opacity="0.25" />
+          <circle
+            class="sketch-dot sketch-dot-pulse sketch-delay-2"
+            cx="400"
+            cy="620"
+            r="3.5"
+            fill="#cc785c"
+            opacity="0.25"
+          />
           <!-- 路线节点 2 -->
-          <circle class="sketch-dot sketch-dot-pulse sketch-delay-2" cx="800" cy="360" r="3.5" fill="#cc785c" opacity="0.25" />
+          <circle
+            class="sketch-dot sketch-dot-pulse sketch-delay-2"
+            cx="800"
+            cy="360"
+            r="3.5"
+            fill="#cc785c"
+            opacity="0.25"
+          />
           <!-- 路线节点 3 -->
-          <circle class="sketch-dot sketch-dot-pulse sketch-delay-2" cx="1120" cy="240" r="3.5" fill="#cc785c" opacity="0.25" />
+          <circle
+            class="sketch-dot sketch-dot-pulse sketch-delay-2"
+            cx="1120"
+            cy="240"
+            r="3.5"
+            fill="#cc785c"
+            opacity="0.25"
+          />
           <!-- 起点标记 -->
-          <circle class="sketch-dot sketch-delay-2" cx="120" cy="748" r="5" fill="none" stroke="#cc785c" stroke-width="1.5" opacity="0.3" />
-          <circle class="sketch-dot sketch-dot-pulse sketch-delay-2" cx="120" cy="748" r="2" fill="#cc785c" opacity="0.35" />
+          <circle
+            class="sketch-dot sketch-delay-2"
+            cx="120"
+            cy="748"
+            r="5"
+            fill="none"
+            stroke="#cc785c"
+            stroke-width="1.5"
+            opacity="0.3"
+          />
+          <circle
+            class="sketch-dot sketch-dot-pulse sketch-delay-2"
+            cx="120"
+            cy="748"
+            r="2"
+            fill="#cc785c"
+            opacity="0.35"
+          />
           <!-- 终点标记 -->
-          <circle class="sketch-dot sketch-delay-3" cx="1320" cy="198" r="5" fill="none" stroke="#c4a35a" stroke-width="1.5" opacity="0.3" />
-          <circle class="sketch-dot sketch-dot-pulse sketch-delay-3" cx="1320" cy="198" r="2" fill="#c4a35a" opacity="0.35" />
+          <circle
+            class="sketch-dot sketch-delay-3"
+            cx="1320"
+            cy="198"
+            r="5"
+            fill="none"
+            stroke="#c4a35a"
+            stroke-width="1.5"
+            opacity="0.3"
+          />
+          <circle
+            class="sketch-dot sketch-dot-pulse sketch-delay-3"
+            cx="1320"
+            cy="198"
+            r="2"
+            fill="#c4a35a"
+            opacity="0.35"
+          />
         </svg>
       </div>
 
       <div class="hero-content">
         <div class="hero-badge">◉ 旅行中枢 · v1.0 · Android / iOS / Web</div>
-        <h1>你的旅行<br />需要一个 <span class="rotating-line">
-            <svg class="rotating-chevron" viewBox="0 0 64 64" fill="none" aria-hidden="true">
-              <path d="M19.2617 9.77173C19.9088 9.07558 20.9191 8.91467 21.7314 9.31665L21.8906 9.40356L21.9355 9.43481L22.1914 9.6311C22.2037 9.64058 22.2161 9.6508 22.2275 9.66138L44.627 30.4622C45.0537 30.8586 45.2997 31.4154 45.2998 32.0002C45.2998 32.4378 45.1632 32.862 44.9141 33.2141C44.9036 33.2289 44.8919 33.2435 44.8799 33.2571L44.6611 33.5032C44.6504 33.5153 44.6388 33.5273 44.627 33.5383L22.2275 54.3381C21.3775 55.127 20.0506 55.0769 19.2617 54.2278H19.2607C18.4721 53.3777 18.5226 52.0508 19.3721 51.262L40.1182 32.0002L19.3721 12.7385C19.3602 12.7275 19.3487 12.7155 19.3379 12.7034L19.1221 12.4592C19.1105 12.4462 19.0999 12.4324 19.0898 12.4182C18.5226 11.6235 18.5712 10.5162 19.2607 9.77271L19.2617 9.77173Z" fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+        <h1>
+          你的旅行<br />需要一个
+          <span class="rotating-line">
+            <svg
+              class="rotating-chevron"
+              viewBox="0 0 64 64"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M19.2617 9.77173C19.9088 9.07558 20.9191 8.91467 21.7314 9.31665L21.8906 9.40356L21.9355 9.43481L22.1914 9.6311C22.2037 9.64058 22.2161 9.6508 22.2275 9.66138L44.627 30.4622C45.0537 30.8586 45.2997 31.4154 45.2998 32.0002C45.2998 32.4378 45.1632 32.862 44.9141 33.2141C44.9036 33.2289 44.8919 33.2435 44.8799 33.2571L44.6611 33.5032C44.6504 33.5153 44.6388 33.5273 44.627 33.5383L22.2275 54.3381C21.3775 55.127 20.0506 55.0769 19.2617 54.2278H19.2607C18.4721 53.3777 18.5226 52.0508 19.3721 51.262L40.1182 32.0002L19.3721 12.7385C19.3602 12.7275 19.3487 12.7155 19.3379 12.7034L19.1221 12.4592C19.1105 12.4462 19.0999 12.4324 19.0898 12.4182C18.5226 11.6235 18.5712 10.5162 19.2607 9.77271L19.2617 9.77173Z"
+                fill="currentColor"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
             </svg>
-            <span class="rotating-word">中枢</span><span class="rotating-cursor">|</span>
-          </span></h1>
+            <span class="rotating-word">中枢</span
+            ><span class="rotating-cursor">|</span>
+          </span>
+        </h1>
         <p class="hero-subtitle">
           一路记 WayLog 是个人旅行控制台，也是你的旅行手账。<br />把计划、行程、收藏、预算和备忘收拢到一个地方——不再散落在备忘录、聊天记录和截图里。
         </p>
         <div class="hero-actions">
           <a href="#download" class="btn btn-primary">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" y1="15" x2="12" y2="3" />
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
             </svg>
             下载应用
           </a>
-          <a href="https://github.com/yugonglian2333" target="_blank" class="btn btn-secondary">
+          <a
+            href="https://github.com/yugonglian2333"
+            target="_blank"
+            class="btn btn-secondary"
+          >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+              <path
+                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+              />
             </svg>
             GitHub
           </a>
@@ -1152,7 +1392,9 @@
     <section class="section section--white" id="problem">
       <div class="section-inner">
         <div class="section-label reveal">为什么需要它</div>
-        <h2 class="section-title reveal reveal-delay-1">旅行信息太散了，<br />把它们装进一个地方</h2>
+        <h2 class="section-title reveal reveal-delay-1">
+          旅行信息太散了，<br />把它们装进一个地方
+        </h2>
         <p class="section-desc reveal reveal-delay-2">
           旅行计划在备忘录里，酒店地址在聊天记录里，想去的地方在地图收藏夹里，花费记在脑子里……一路记把它们都收拢起来。
         </p>
@@ -1160,17 +1402,23 @@
           <div class="problem-card card reveal reveal-delay-1">
             <div class="icon">📱</div>
             <h3>信息散落各处</h3>
-            <p>旅行计划、酒店地址、餐厅收藏分散在备忘录、聊天记录、地图收藏夹和截图里，出发前总要翻半天。</p>
+            <p>
+              旅行计划、酒店地址、餐厅收藏分散在备忘录、聊天记录、地图收藏夹和截图里，出发前总要翻半天。
+            </p>
           </div>
           <div class="problem-card card reveal reveal-delay-2">
             <div class="icon">📅</div>
             <h3>行程排得混乱</h3>
-            <p>每天的安排靠脑子记或者写在笔记本上，改一个时间就要全部重排，临出发了还在纠结先去哪后去哪。</p>
+            <p>
+              每天的安排靠脑子记或者写在笔记本上，改一个时间就要全部重排，临出发了还在纠结先去哪后去哪。
+            </p>
           </div>
           <div class="problem-card card reveal reveal-delay-3">
             <div class="icon">💰</div>
             <h3>预算只在事后算</h3>
-            <p>旅行中花钱没概念，回来才发现超预算了。缺少一个随手就能记、边花边看的简单工具。</p>
+            <p>
+              旅行中花钱没概念，回来才发现超预算了。缺少一个随手就能记、边花边看的简单工具。
+            </p>
           </div>
         </div>
       </div>
@@ -1180,7 +1428,9 @@
     <section class="section section--warm" id="features">
       <div class="section-inner">
         <div class="section-label reveal">核心功能</div>
-        <h2 class="section-title reveal reveal-delay-1">覆盖旅行全流程<br />10 大功能模块</h2>
+        <h2 class="section-title reveal reveal-delay-1">
+          覆盖旅行全流程<br />10 大功能模块
+        </h2>
         <p class="section-desc reveal reveal-delay-2">
           从规划到出发，从记录到回顾，一路记覆盖了旅行中最常用的每一个场景。
         </p>
@@ -1188,47 +1438,71 @@
           <div class="feature-card card reveal reveal-delay-1">
             <div class="feature-icon coral">✈️</div>
             <h3>旅行管理</h3>
-            <p>创建、编辑和查看旅行，支持计划中 / 旅途中 / 已完成三种状态管理，支持置顶。</p>
+            <p>
+              创建、编辑和查看旅行，支持计划中 / 旅途中 /
+              已完成三种状态管理，支持置顶。
+            </p>
           </div>
           <div class="feature-card card reveal reveal-delay-2">
             <div class="feature-icon green">📋</div>
             <h3>每日行程</h3>
-            <p>按日期组织行程，记录时间、地点、备注和费用，时间排序一目了然。</p>
+            <p>
+              按日期组织行程，记录时间、地点、备注和费用，时间排序一目了然。
+            </p>
           </div>
           <div class="feature-card card reveal reveal-delay-3">
             <div class="feature-icon blue">📍</div>
             <h3>地点收藏</h3>
-            <p>19 种图标覆盖景点、餐厅、酒店、交通等场景，集成高德 POI 搜索。</p>
+            <p>
+              19 种图标覆盖景点、餐厅、酒店、交通等场景，集成高德 POI 搜索。
+            </p>
           </div>
           <div class="feature-card card reveal reveal-delay-1">
             <div class="feature-icon gray">💰</div>
             <h3>预算与记账</h3>
-            <p>设置行程预算，7 种费用分类（交通/住宿/餐饮/门票/购物/活动/其他），支持多币种。</p>
+            <p>
+              设置行程预算，7
+              种费用分类（交通/住宿/餐饮/门票/购物/活动/其他），支持多币种。
+            </p>
           </div>
           <div class="feature-card card reveal reveal-delay-2">
             <div class="feature-icon coral">🚗</div>
             <h3>交通与住宿</h3>
-            <p>航班、火车、自驾、巴士多种交通方式，住宿信息管理（名称、地址、入住/退房时间）。</p>
+            <p>
+              航班、火车、自驾、巴士多种交通方式，住宿信息管理（名称、地址、入住/退房时间）。
+            </p>
           </div>
           <div class="feature-card card reveal reveal-delay-3">
             <div class="feature-icon green">✅</div>
             <h3>打包与备忘</h3>
-            <p>可勾选的打包清单 + 支持置顶的旅行备忘，证件信息、航班号、注意事项不再到处翻找。</p>
+            <p>
+              可勾选的打包清单 +
+              支持置顶的旅行备忘，证件信息、航班号、注意事项不再到处翻找。
+            </p>
           </div>
           <div class="feature-card card reveal reveal-delay-1">
             <div class="feature-icon blue">☁️</div>
             <h3>云同步</h3>
-            <p>基于 Supabase 的 RLS 安全同步，增量 upsert + 版本冲突检测，多设备数据保持一致。</p>
+            <p>
+              基于 Supabase 的 RLS 安全同步，增量 upsert +
+              版本冲突检测，多设备数据保持一致。
+            </p>
           </div>
           <div class="feature-card card reveal reveal-delay-2">
             <div class="feature-icon gray">🔐</div>
             <h3>多种登录</h3>
-            <p>游客 / 邮箱验证码 / 手机验证码 / 微信四种登录方式，灵活选择，数据安全可控。</p>
+            <p>
+              游客 / 邮箱验证码 / 手机验证码 /
+              微信四种登录方式，灵活选择，数据安全可控。
+            </p>
           </div>
           <div class="feature-card card reveal reveal-delay-3">
             <div class="feature-icon green">🌤️</div>
             <h3>天气与地图</h3>
-            <p>集成高德地图和 Open-Meteo 天气，在应用内查看位置、天气和路线，规划更直观。</p>
+            <p>
+              集成高德地图和 Open-Meteo
+              天气，在应用内查看位置、天气和路线，规划更直观。
+            </p>
           </div>
         </div>
       </div>
@@ -1238,9 +1512,12 @@
     <section class="section section--white" id="architecture">
       <div class="section-inner">
         <div class="section-label reveal">技术架构</div>
-        <h2 class="section-title reveal reveal-delay-1">本地优先，<br />云端加持</h2>
+        <h2 class="section-title reveal reveal-delay-1">
+          本地优先，<br />云端加持
+        </h2>
         <p class="section-desc reveal reveal-delay-2">
-          所有操作先写入本地存储，确保离线可用；后台自动增量同步到 Supabase 云端，跨设备无缝衔接。
+          所有操作先写入本地存储，确保离线可用；后台自动增量同步到 Supabase
+          云端，跨设备无缝衔接。
         </p>
         <div class="arch-flow">
           <div class="arch-node reveal reveal-delay-1">
@@ -1270,7 +1547,8 @@
         <div class="section-label reveal">技术实力</div>
         <h2 class="section-title reveal reveal-delay-1">用数字说话</h2>
         <p class="section-desc reveal reveal-delay-2">
-          基于 React Native + Expo 构建，一套代码覆盖三端，全链路 TypeScript 类型安全。
+          基于 React Native + Expo 构建，一套代码覆盖三端，全链路 TypeScript
+          类型安全。
         </p>
         <div class="showcase-grid">
           <div class="showcase-stat">
@@ -1365,25 +1643,57 @@
         <div class="roadmap-timeline">
           <div class="roadmap-col reveal reveal-delay-1">
             <h4><span class="dot done"></span> 已完成</h4>
-            <div class="roadmap-item"><span class="check">✓</span> 旅行 CRUD 与状态管理</div>
-            <div class="roadmap-item"><span class="check">✓</span> 按天行程与时间排序</div>
-            <div class="roadmap-item"><span class="check">✓</span> 地点收藏与高德 POI 搜索</div>
-            <div class="roadmap-item"><span class="check">✓</span> 预算记账（7 种分类）</div>
-            <div class="roadmap-item"><span class="check">✓</span> 交通安排与住宿管理</div>
-            <div class="roadmap-item"><span class="check">✓</span> 打包清单与备忘</div>
-            <div class="roadmap-item"><span class="check">✓</span> 4 种登录 + 云同步</div>
-            <div class="roadmap-item"><span class="check">✓</span> 地图 / 天气 / 全局搜索</div>
+            <div class="roadmap-item">
+              <span class="check">✓</span> 旅行 CRUD 与状态管理
+            </div>
+            <div class="roadmap-item">
+              <span class="check">✓</span> 按天行程与时间排序
+            </div>
+            <div class="roadmap-item">
+              <span class="check">✓</span> 地点收藏与高德 POI 搜索
+            </div>
+            <div class="roadmap-item">
+              <span class="check">✓</span> 预算记账（7 种分类）
+            </div>
+            <div class="roadmap-item">
+              <span class="check">✓</span> 交通安排与住宿管理
+            </div>
+            <div class="roadmap-item">
+              <span class="check">✓</span> 打包清单与备忘
+            </div>
+            <div class="roadmap-item">
+              <span class="check">✓</span> 4 种登录 + 云同步
+            </div>
+            <div class="roadmap-item">
+              <span class="check">✓</span> 地图 / 天气 / 全局搜索
+            </div>
           </div>
           <div class="roadmap-col reveal reveal-delay-2">
             <h4><span class="dot wip"></span> 即将到来</h4>
-            <div class="roadmap-item"><span class="arrow-icon">→</span> 今日模式：突出当天安排</div>
-            <div class="roadmap-item"><span class="arrow-icon">→</span> 地点完成状态追踪</div>
-            <div class="roadmap-item"><span class="arrow-icon">→</span> 行前清单完善</div>
-            <div class="roadmap-item"><span class="arrow-icon">→</span> 地图视图增强</div>
-            <div class="roadmap-item"><span class="arrow-icon">→</span> 旅行日记与回顾</div>
-            <div class="roadmap-item"><span class="arrow-icon">→</span> 公共 POI 内容库</div>
-            <div class="roadmap-item"><span class="arrow-icon">→</span> iOS 版本发布</div>
-            <div class="roadmap-item"><span class="arrow-icon">→</span> 同步冲突智能处理</div>
+            <div class="roadmap-item">
+              <span class="arrow-icon">→</span> 今日模式：突出当天安排
+            </div>
+            <div class="roadmap-item">
+              <span class="arrow-icon">→</span> 地点完成状态追踪
+            </div>
+            <div class="roadmap-item">
+              <span class="arrow-icon">→</span> 行前清单完善
+            </div>
+            <div class="roadmap-item">
+              <span class="arrow-icon">→</span> 地图视图增强
+            </div>
+            <div class="roadmap-item">
+              <span class="arrow-icon">→</span> 旅行日记与回顾
+            </div>
+            <div class="roadmap-item">
+              <span class="arrow-icon">→</span> 公共 POI 内容库
+            </div>
+            <div class="roadmap-item">
+              <span class="arrow-icon">→</span> iOS 版本发布
+            </div>
+            <div class="roadmap-item">
+              <span class="arrow-icon">→</span> 同步冲突智能处理
+            </div>
           </div>
         </div>
       </div>
@@ -1394,18 +1704,35 @@
       <div class="section-inner">
         <div class="section-label reveal">开始使用</div>
         <h2 class="section-title reveal reveal-delay-1">下载一路记</h2>
-        <p class="section-desc reveal reveal-delay-2" style="margin:0 auto">
+        <p class="section-desc reveal reveal-delay-2" style="margin: 0 auto">
           目前提供 Android APK 安装包，iOS 和 Web 版本即将到来。
         </p>
         <div class="download-card reveal reveal-delay-3">
-          <h3 style="font-size:1.25rem;font-weight:600;letter-spacing:-0.015em;color:var(--ink);margin-bottom:0.5rem">
+          <h3
+            style="
+              font-size: 1.25rem;
+              font-weight: 600;
+              letter-spacing: -0.015em;
+              color: var(--ink);
+              margin-bottom: 0.5rem;
+            "
+          >
             Android APK
           </h3>
-          <div class="terminal-prompt" style="margin-bottom:1.5rem">
+          <div class="terminal-prompt" style="margin-bottom: 1.5rem">
             <span class="prompt-sign">$</span>
             <span>curl -O https://www.pgyer.com/WayLog</span>
           </div>
-          <p style="color:var(--ink-tertiary);font-size:0.85rem;margin-bottom:1.5rem;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','PingFang SC','Noto Sans SC',sans-serif">
+          <p
+            style="
+              color: var(--ink-tertiary);
+              font-size: 0.85rem;
+              margin-bottom: 1.5rem;
+              font-family:
+                -apple-system, BlinkMacSystemFont, &quot;SF Pro Text&quot;,
+                &quot;PingFang SC&quot;, &quot;Noto Sans SC&quot;, sans-serif;
+            "
+          >
             或扫描二维码直接下载
           </p>
           <img
@@ -1413,18 +1740,48 @@
             alt="扫码下载 WayLog"
             width="140"
             height="140"
-            style="border-radius:12px;margin:1rem auto;box-shadow:var(--shadow-sm)"
+            style="
+              border-radius: 12px;
+              margin: 1rem auto;
+              box-shadow: var(--shadow-sm);
+            "
           />
           <div class="download-links">
-            <a href="https://www.pgyer.com/WayLog" target="_blank" class="btn btn-primary">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" y1="15" x2="12" y2="3" />
+            <a
+              href="https://www.pgyer.com/WayLog"
+              target="_blank"
+              class="btn btn-primary"
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
               </svg>
               下载 APK
             </a>
-            <a href="https://github.com/yugonglian2333" target="_blank" class="btn btn-secondary">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            <a
+              href="https://github.com/yugonglian2333"
+              target="_blank"
+              class="btn btn-secondary"
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+                />
               </svg>
               查看源码
             </a>
@@ -1437,8 +1794,16 @@
     <footer class="footer">
       <div class="section-inner">
         <ul class="footer-links">
-          <li><a href="https://github.com/yugonglian2333" target="_blank">GitHub</a></li>
-          <li><a href="https://www.pgyer.com/WayLog" target="_blank">蒲公英下载</a></li>
+          <li>
+            <a href="https://github.com/yugonglian2333" target="_blank"
+              >GitHub</a
+            >
+          </li>
+          <li>
+            <a href="https://www.pgyer.com/WayLog" target="_blank"
+              >蒲公英下载</a
+            >
+          </li>
           <li><a href="mailto:yugonglian@example.com">联系我们</a></li>
         </ul>
         <p>© 2026 一路记 WayLog · 让每一次旅行都有迹可循</p>
@@ -1458,14 +1823,18 @@
       window.addEventListener("scroll", updateNav, { passive: true });
 
       // ===== 动效降级检测 =====
-      const isReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const isReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
 
       // ===== Hero 简笔画描边动画触发 =====
       function triggerSketchAnimation() {
         if (isReducedMotion) return;
-        document.querySelectorAll(".sketch-draw, .sketch-dot").forEach(function (el) {
-          el.classList.add("draw");
-        });
+        document
+          .querySelectorAll(".sketch-draw, .sketch-dot")
+          .forEach(function (el) {
+            el.classList.add("draw");
+          });
       }
       // 页面加载后稍作延迟触发
       if (document.readyState === "loading") {
@@ -1535,7 +1904,11 @@
       })();
 
       // ===== GSAP ScrollTrigger animations =====
-      if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined" && !isReducedMotion) {
+      if (
+        typeof gsap !== "undefined" &&
+        typeof ScrollTrigger !== "undefined" &&
+        !isReducedMotion
+      ) {
         gsap.registerPlugin(ScrollTrigger);
         document.querySelectorAll(".section").forEach((section) => {
           const reveals = section.querySelectorAll(".reveal");
@@ -1544,7 +1917,8 @@
             reveals,
             { opacity: 0, y: 30 },
             {
-              opacity: 1, y: 0,
+              opacity: 1,
+              y: 0,
               duration: 0.65,
               stagger: 0.07,
               ease: "power2.out",
@@ -1566,7 +1940,9 @@
           },
           { threshold: 0.08, rootMargin: "0px 0px -30px 0px" },
         );
-        document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
+        document
+          .querySelectorAll(".reveal")
+          .forEach((el) => revealObserver.observe(el));
       }
 
       // ===== Animated counter (showcase stats) =====
@@ -1580,7 +1956,8 @@
             const suffix = numEl?.getAttribute("data-suffix") || "";
 
             if (labelEl) {
-              labelEl.style.transition = "opacity 0.6s 0.3s, transform 0.6s 0.3s";
+              labelEl.style.transition =
+                "opacity 0.6s 0.3s, transform 0.6s 0.3s";
               labelEl.style.opacity = "1";
               labelEl.style.transform = "translateY(0)";
             }
@@ -1592,7 +1969,8 @@
               numEl.style.transform = "translateY(0)";
               function update(now) {
                 const progress = Math.min((now - start) / duration, 1);
-                const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+                const eased =
+                  progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
                 numEl.textContent = Math.floor(target * eased) + suffix;
                 if (progress < 1) requestAnimationFrame(update);
               }
@@ -1611,8 +1989,14 @@
       document.querySelectorAll(".showcase-stat").forEach((el) => {
         const numEl = el.querySelector(".num");
         const labelEl = el.querySelector(".label");
-        if (numEl) { numEl.style.opacity = "0"; numEl.style.transform = "translateY(16px)"; }
-        if (labelEl) { labelEl.style.opacity = "0"; labelEl.style.transform = "translateY(8px)"; }
+        if (numEl) {
+          numEl.style.opacity = "0";
+          numEl.style.transform = "translateY(16px)";
+        }
+        if (labelEl) {
+          labelEl.style.opacity = "0";
+          labelEl.style.transform = "translateY(8px)";
+        }
         counterObserver.observe(el);
       });
 
