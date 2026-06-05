@@ -1182,9 +1182,231 @@
           font-size: 5rem;
         }
       }
+
+      /* ===== 品牌加载动画 ===== */
+      .loader-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background: var(--canvas);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: opacity 0.6s ease, visibility 0.6s ease;
+      }
+      .loader-overlay.hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+      .loader-brand {
+        text-align: center;
+      }
+      .loader-logo {
+        width: 72px;
+        height: 72px;
+        margin: 0 auto 1rem;
+      }
+      .loader-path {
+        stroke-dasharray: 200;
+        stroke-dashoffset: 200;
+        animation: loaderDraw 0.5s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+      }
+      .loader-delay-1 { animation-delay: 0.1s; }
+      .loader-delay-2 { animation-delay: 0.2s; }
+      @keyframes loaderDraw {
+        to { stroke-dashoffset: 0; }
+      }
+      .loader-text {
+        font-family: "Lora", serif;
+        font-size: 1.15rem;
+        font-weight: 500;
+        color: var(--ink);
+        letter-spacing: -0.02em;
+        opacity: 0;
+        animation: loaderTextIn 0.3s ease 0.35s forwards;
+      }
+      @keyframes loaderTextIn {
+        to { opacity: 1; }
+      }
+      .loader-bar {
+        width: 100px;
+        height: 2px;
+        background: rgba(20, 20, 19, 0.08);
+        border-radius: 1px;
+        margin: 0.75rem auto 0;
+        overflow: hidden;
+      }
+      .loader-bar-fill {
+        width: 0;
+        height: 100%;
+        background: var(--coral);
+        border-radius: 1px;
+        animation: loaderProgress 0.6s cubic-bezier(0.25, 0.1, 0.25, 1) 0.15s forwards;
+      }
+      @keyframes loaderProgress {
+        to { width: 100%; }
+      }
+
+      /* ===== 鼠标跟随光晕 ===== */
+      .hero-glow {
+        position: absolute;
+        width: 400px;
+        height: 400px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(204, 120, 92, 0.1) 0%, transparent 70%);
+        pointer-events: none;
+        z-index: 0;
+        transform: translate(-50%, -50%);
+        transition: opacity 0.3s ease;
+        filter: blur(40px);
+        will-change: left, top;
+        left: 0;
+        top: 0;
+      }
+
+      /* ===== 水平滚动画廊 ===== */
+      .features-scroll-wrap {
+        position: relative;
+        margin-top: 4rem;
+      }
+      .features-scroll {
+        display: flex;
+        gap: 1rem;
+        overflow-x: auto;
+        scroll-snap-type: x proximity;
+        -webkit-overflow-scrolling: touch;
+        padding: 0.5rem 2rem 1.5rem;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        cursor: grab;
+        user-select: none;
+        -webkit-user-select: none;
+      }
+      .features-scroll::-webkit-scrollbar {
+        display: none;
+      }
+      .features-scroll.dragging {
+        cursor: grabbing;
+        scroll-snap-type: none;
+        scroll-behavior: auto;
+      }
+      .features-scroll.dragging .feature-card {
+        pointer-events: none;
+      }
+      .features-scroll .feature-card {
+        min-width: 280px;
+        max-width: 300px;
+        flex-shrink: 0;
+        scroll-snap-align: start;
+        transition: transform 0.3s ease;
+      }
+      .features-scroll .feature-card:hover {
+        transform: translateY(-3px);
+      }
+
+      /* 左右导航箭头 */
+      .scroll-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 5;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 1px solid var(--hairline);
+        background: var(--surface);
+        box-shadow: var(--shadow-md);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease, background 0.2s ease, transform 0.2s ease;
+        color: var(--ink-secondary);
+      }
+      .scroll-arrow:hover {
+        background: var(--surface-warm);
+        color: var(--ink);
+        transform: translateY(-50%) scale(1.08);
+      }
+      .scroll-arrow:active {
+        transform: translateY(-50%) scale(0.95);
+      }
+      .scroll-arrow.visible {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .scroll-arrow-left {
+        left: -12px;
+      }
+      .scroll-arrow-right {
+        right: -12px;
+      }
+      .scroll-arrow svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      /* 移动端隐藏箭头 */
+      @media (hover: none) and (pointer: coarse) {
+        .scroll-arrow { display: none !important; }
+      }
+
+      .scroll-fade-left,
+      .scroll-fade-right {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 60px;
+        z-index: 2;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      .scroll-fade-left {
+        left: 0;
+        background: linear-gradient(90deg, var(--surface-warm), transparent);
+      }
+      .scroll-fade-right {
+        right: 0;
+        background: linear-gradient(270deg, var(--surface-warm), transparent);
+      }
+      .scroll-fade-left.visible,
+      .scroll-fade-right.visible {
+        opacity: 1;
+      }
+      @media (max-width: 768px) {
+        .features-scroll .feature-card {
+          min-width: 260px;
+        }
+        .features-scroll {
+          padding: 0.5rem 1rem 1.5rem;
+        }
+      }
+
+      /* ===== 动效降级 ===== */
+      @media (prefers-reduced-motion: reduce) {
+        .loader-overlay { display: none; }
+        .hero-glow { display: none; }
+      }
     </style>
   </head>
   <body>
+    <!-- ===== 品牌加载动画 ===== -->
+    <div class="loader-overlay" id="loaderOverlay">
+      <div class="loader-brand">
+        <svg class="loader-logo" viewBox="0 0 80 80" fill="none">
+          <path class="loader-path" d="M20,60 Q30,25 40,40 Q50,55 60,20" stroke="#cc785c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path class="loader-path loader-delay-1" d="M15,52 L65,52" stroke="#cc785c" stroke-width="2" stroke-linecap="round"/>
+          <circle class="loader-path loader-delay-2" cx="40" cy="32" r="3.5" stroke="#cc785c" stroke-width="2" fill="none"/>
+        </svg>
+        <div class="loader-text">一路记 WayLog</div>
+        <div class="loader-bar"><div class="loader-bar-fill" id="loaderBarFill"></div></div>
+      </div>
+    </div>
+
     <!-- Navigation -->
     <nav class="nav" id="nav">
       <div class="nav-inner">
@@ -1211,6 +1433,7 @@
     <section class="hero" id="hero">
       <div class="hero-ambient hero-ambient--1"></div>
       <div class="hero-ambient hero-ambient--2"></div>
+      <div class="hero-glow" id="heroGlow" aria-hidden="true"></div>
 
       <!-- 简笔画风格 SVG 插图 -->
       <div class="hero-sketch" aria-hidden="true">
@@ -1434,76 +1657,86 @@
         <p class="section-desc reveal reveal-delay-2">
           从规划到出发，从记录到回顾，一路记覆盖了旅行中最常用的每一个场景。
         </p>
-        <div class="features-grid">
-          <div class="feature-card card reveal reveal-delay-1">
-            <div class="feature-icon coral">✈️</div>
-            <h3>旅行管理</h3>
-            <p>
-              创建、编辑和查看旅行，支持计划中 / 旅途中 /
-              已完成三种状态管理，支持置顶。
-            </p>
+        <div class="features-scroll-wrap reveal reveal-delay-3">
+          <button class="scroll-arrow scroll-arrow-left" id="scrollArrowLeft" aria-label="向左滚动">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <div class="scroll-fade-left" id="fadeLeft"></div>
+          <div class="features-scroll" id="featuresScroll">
+            <div class="feature-card card">
+              <div class="feature-icon coral">✈️</div>
+              <h3>旅行管理</h3>
+              <p>
+                创建、编辑和查看旅行，支持计划中 / 旅途中 /
+                已完成三种状态管理，支持置顶。
+              </p>
+            </div>
+            <div class="feature-card card">
+              <div class="feature-icon green">📋</div>
+              <h3>每日行程</h3>
+              <p>
+                按日期组织行程，记录时间、地点、备注和费用，时间排序一目了然。
+              </p>
+            </div>
+            <div class="feature-card card">
+              <div class="feature-icon blue">📍</div>
+              <h3>地点收藏</h3>
+              <p>
+                19 种图标覆盖景点、餐厅、酒店、交通等场景，集成高德 POI 搜索。
+              </p>
+            </div>
+            <div class="feature-card card">
+              <div class="feature-icon gray">💰</div>
+              <h3>预算与记账</h3>
+              <p>
+                设置行程预算，7
+                种费用分类（交通/住宿/餐饮/门票/购物/活动/其他），支持多币种。
+              </p>
+            </div>
+            <div class="feature-card card">
+              <div class="feature-icon coral">🚗</div>
+              <h3>交通与住宿</h3>
+              <p>
+                航班、火车、自驾、巴士多种交通方式，住宿信息管理（名称、地址、入住/退房时间）。
+              </p>
+            </div>
+            <div class="feature-card card">
+              <div class="feature-icon green">✅</div>
+              <h3>打包与备忘</h3>
+              <p>
+                可勾选的打包清单 +
+                支持置顶的旅行备忘，证件信息、航班号、注意事项不再到处翻找。
+              </p>
+            </div>
+            <div class="feature-card card">
+              <div class="feature-icon blue">☁️</div>
+              <h3>云同步</h3>
+              <p>
+                基于 Supabase 的 RLS 安全同步，增量 upsert +
+                版本冲突检测，多设备数据保持一致。
+              </p>
+            </div>
+            <div class="feature-card card">
+              <div class="feature-icon gray">🔐</div>
+              <h3>多种登录</h3>
+              <p>
+                游客 / 邮箱验证码 / 手机验证码 /
+                微信四种登录方式，灵活选择，数据安全可控。
+              </p>
+            </div>
+            <div class="feature-card card">
+              <div class="feature-icon green">🌤️</div>
+              <h3>天气与地图</h3>
+              <p>
+                集成高德地图和 Open-Meteo
+                天气，在应用内查看位置、天气和路线，规划更直观。
+              </p>
+            </div>
           </div>
-          <div class="feature-card card reveal reveal-delay-2">
-            <div class="feature-icon green">📋</div>
-            <h3>每日行程</h3>
-            <p>
-              按日期组织行程，记录时间、地点、备注和费用，时间排序一目了然。
-            </p>
-          </div>
-          <div class="feature-card card reveal reveal-delay-3">
-            <div class="feature-icon blue">📍</div>
-            <h3>地点收藏</h3>
-            <p>
-              19 种图标覆盖景点、餐厅、酒店、交通等场景，集成高德 POI 搜索。
-            </p>
-          </div>
-          <div class="feature-card card reveal reveal-delay-1">
-            <div class="feature-icon gray">💰</div>
-            <h3>预算与记账</h3>
-            <p>
-              设置行程预算，7
-              种费用分类（交通/住宿/餐饮/门票/购物/活动/其他），支持多币种。
-            </p>
-          </div>
-          <div class="feature-card card reveal reveal-delay-2">
-            <div class="feature-icon coral">🚗</div>
-            <h3>交通与住宿</h3>
-            <p>
-              航班、火车、自驾、巴士多种交通方式，住宿信息管理（名称、地址、入住/退房时间）。
-            </p>
-          </div>
-          <div class="feature-card card reveal reveal-delay-3">
-            <div class="feature-icon green">✅</div>
-            <h3>打包与备忘</h3>
-            <p>
-              可勾选的打包清单 +
-              支持置顶的旅行备忘，证件信息、航班号、注意事项不再到处翻找。
-            </p>
-          </div>
-          <div class="feature-card card reveal reveal-delay-1">
-            <div class="feature-icon blue">☁️</div>
-            <h3>云同步</h3>
-            <p>
-              基于 Supabase 的 RLS 安全同步，增量 upsert +
-              版本冲突检测，多设备数据保持一致。
-            </p>
-          </div>
-          <div class="feature-card card reveal reveal-delay-2">
-            <div class="feature-icon gray">🔐</div>
-            <h3>多种登录</h3>
-            <p>
-              游客 / 邮箱验证码 / 手机验证码 /
-              微信四种登录方式，灵活选择，数据安全可控。
-            </p>
-          </div>
-          <div class="feature-card card reveal reveal-delay-3">
-            <div class="feature-icon green">🌤️</div>
-            <h3>天气与地图</h3>
-            <p>
-              集成高德地图和 Open-Meteo
-              天气，在应用内查看位置、天气和路线，规划更直观。
-            </p>
-          </div>
+          <div class="scroll-fade-right visible" id="fadeRight"></div>
+          <button class="scroll-arrow scroll-arrow-right visible" id="scrollArrowRight" aria-label="向右滚动">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
         </div>
       </div>
     </section>
@@ -1811,6 +2044,25 @@
     </footer>
 
     <script>
+      // ===== 动效降级检测 =====
+      const isReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+
+      // ===== 品牌加载动画 =====
+      (function initLoader() {
+        if (isReducedMotion) {
+          const overlay = document.getElementById("loaderOverlay");
+          if (overlay) overlay.classList.add("hidden");
+          return;
+        }
+        // 1s 后隐藏加载层
+        setTimeout(function () {
+          var overlay = document.getElementById("loaderOverlay");
+          if (overlay) overlay.classList.add("hidden");
+        }, 1000);
+      })();
+
       // ===== Nav scroll effect =====
       const nav = document.getElementById("nav");
       function updateNav() {
@@ -1821,11 +2073,6 @@
         }
       }
       window.addEventListener("scroll", updateNav, { passive: true });
-
-      // ===== 动效降级检测 =====
-      const isReducedMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)",
-      ).matches;
 
       // ===== Hero 简笔画描边动画触发 =====
       function triggerSketchAnimation() {
@@ -1903,33 +2150,230 @@
         }, 1200);
       })();
 
-      // ===== GSAP ScrollTrigger animations =====
+      // ===== 鼠标跟随光晕 =====
+      (function initHeroGlow() {
+        if (isReducedMotion) return;
+        var hero = document.getElementById("hero");
+        var glow = document.getElementById("heroGlow");
+        if (!hero || !glow) return;
+
+        // 检测是否为触控设备
+        if ("ontouchstart" in window) {
+          glow.style.display = "none";
+          return;
+        }
+
+        hero.addEventListener("mousemove", function (e) {
+          var rect = hero.getBoundingClientRect();
+          var x = e.clientX - rect.left;
+          var y = e.clientY - rect.top;
+          glow.style.left = x + "px";
+          glow.style.top = y + "px";
+        });
+        hero.addEventListener("mouseenter", function () {
+          glow.style.opacity = "1";
+        });
+        hero.addEventListener("mouseleave", function () {
+          glow.style.opacity = "0";
+        });
+      })();
+
+      // ===== 水平滚动：拖拽 + 滚轮 + 箭头 =====
+      (function initHorizontalScroll() {
+        var scrollEl = document.getElementById("featuresScroll");
+        var fadeL = document.getElementById("fadeLeft");
+        var fadeR = document.getElementById("fadeRight");
+        var arrowL = document.getElementById("scrollArrowLeft");
+        var arrowR = document.getElementById("scrollArrowRight");
+        if (!scrollEl) return;
+
+        // 更新渐变遮罩 + 箭头显隐
+        function updateUI() {
+          var sl = scrollEl.scrollLeft;
+          var maxSl = scrollEl.scrollWidth - scrollEl.clientWidth;
+          var atStart = sl < 10;
+          var atEnd = sl > maxSl - 10;
+
+          if (fadeL) fadeL.classList.toggle("visible", !atStart);
+          if (fadeR) fadeR.classList.toggle("visible", !atEnd);
+          if (arrowL) arrowL.classList.toggle("visible", !atStart);
+          if (arrowR) arrowR.classList.toggle("visible", !atEnd);
+        }
+        scrollEl.addEventListener("scroll", updateUI, { passive: true });
+        updateUI();
+
+        // --- 鼠标拖拽滚动 ---
+        var isDragging = false;
+        var startX = 0;
+        var scrollLeftStart = 0;
+
+        scrollEl.addEventListener("mousedown", function (e) {
+          isDragging = true;
+          scrollEl.classList.add("dragging");
+          startX = e.pageX - scrollEl.offsetLeft;
+          scrollLeftStart = scrollEl.scrollLeft;
+          e.preventDefault();
+        });
+
+        document.addEventListener("mousemove", function (e) {
+          if (!isDragging) return;
+          var x = e.pageX - scrollEl.offsetLeft;
+          var walk = (x - startX) * 1.5; // 1.5x 速度倍率
+          scrollEl.scrollLeft = scrollLeftStart - walk;
+        });
+
+        document.addEventListener("mouseup", function () {
+          if (!isDragging) return;
+          isDragging = false;
+          scrollEl.classList.remove("dragging");
+        });
+
+        // --- 鼠标滚轮横向滚动 ---
+        scrollEl.addEventListener("wheel", function (e) {
+          // 垂直滚轮转横向滚动，deltaX 为 0 时才转换（触控板原生横向不拦截）
+          if (e.deltaX === 0 && e.deltaY !== 0) {
+            e.preventDefault();
+            scrollEl.scrollLeft += e.deltaY;
+          }
+        }, { passive: false });
+
+        // --- 箭头按钮点击 ---
+        var scrollStep = 300; // 每次点击滚动距离
+        if (arrowL) {
+          arrowL.addEventListener("click", function (e) {
+            e.stopPropagation();
+            scrollEl.scrollBy({ left: -scrollStep, behavior: "smooth" });
+          });
+        }
+        if (arrowR) {
+          arrowR.addEventListener("click", function (e) {
+            e.stopPropagation();
+            scrollEl.scrollBy({ left: scrollStep, behavior: "smooth" });
+          });
+        }
+
+        // 初始化时延迟更新一次（等 GSAP 动画入场后再检测）
+        setTimeout(updateUI, 3000);
+      })();
+
+      // ===== 页面过渡动画（导航平滑滚动） =====
+      (function initPageTransition() {
+        if (typeof gsap === "undefined") return;
+        document.querySelectorAll('.nav-links a[href^="#"]').forEach(function (a) {
+          a.addEventListener("click", function (e) {
+            e.preventDefault();
+            var target = document.querySelector(this.getAttribute("href"));
+            if (!target) return;
+            gsap.to(window, {
+              scrollTo: { y: target, offsetY: 60 },
+              duration: 1,
+              ease: "power3.inOut",
+            });
+          });
+        });
+        // Hero CTA 按钮也加平滑滚动
+        document.querySelectorAll('.hero-actions a[href^="#"]').forEach(function (a) {
+          a.addEventListener("click", function (e) {
+            e.preventDefault();
+            var target = document.querySelector(this.getAttribute("href"));
+            if (!target) return;
+            gsap.to(window, {
+              scrollTo: { y: target, offsetY: 60 },
+              duration: 1.2,
+              ease: "power3.inOut",
+            });
+          });
+        });
+      })();
+
+      // ===== GSAP ScrollTrigger animations（交错入场增强版） =====
       if (
         typeof gsap !== "undefined" &&
         typeof ScrollTrigger !== "undefined" &&
         !isReducedMotion
       ) {
         gsap.registerPlugin(ScrollTrigger);
-        document.querySelectorAll(".section").forEach((section) => {
-          const reveals = section.querySelectorAll(".reveal");
-          if (!reveals.length) return;
-          gsap.fromTo(
-            reveals,
-            { opacity: 0, y: 30 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 0.65,
-              stagger: 0.07,
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: section,
-                start: "top 88%",
-                toggleActions: "play none none none",
-              },
-            },
+
+        // 等待加载动画结束后再初始化滚动动画
+        setTimeout(function () {
+          document.querySelectorAll(".section").forEach((section) => {
+            const reveals = section.querySelectorAll(".reveal");
+            if (!reveals.length) return;
+
+            // 区分普通 reveal 和功能卡片（水平滚动区域内的不走 stagger）
+            const normalReveals = [];
+            reveals.forEach(function (el) {
+              if (!el.closest(".features-scroll")) {
+                normalReveals.push(el);
+              }
+            });
+
+            if (normalReveals.length) {
+              gsap.fromTo(
+                normalReveals,
+                { opacity: 0, y: 35 },
+                {
+                  opacity: 1,
+                  y: 0,
+                  duration: 0.7,
+                  stagger: 0.08,
+                  ease: "power3.out",
+                  scrollTrigger: {
+                    trigger: section,
+                    start: "top 88%",
+                    toggleActions: "play none none none",
+                  },
+                },
+              );
+            }
+          });
+
+          // 水平滚动卡片：交错入场（从下方 + 缩放）
+          var scrollCards = document.querySelectorAll(
+            ".features-scroll .feature-card",
           );
-        });
+          if (scrollCards.length) {
+            gsap.fromTo(
+              scrollCards,
+              { opacity: 0, y: 40, scale: 0.95 },
+              {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                duration: 0.6,
+                stagger: 0.07,
+                ease: "back.out(1.2)",
+                scrollTrigger: {
+                  trigger: ".features-scroll-wrap",
+                  start: "top 85%",
+                  toggleActions: "play none none none",
+                },
+              },
+            );
+          }
+
+          // Showcase 区域的数字：交错入场
+          var stats = document.querySelectorAll(".showcase-stat");
+          if (stats.length) {
+            gsap.fromTo(
+              stats,
+              { opacity: 0, y: 30, scale: 0.9 },
+              {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                duration: 0.6,
+                stagger: 0.1,
+                ease: "back.out(1.4)",
+                scrollTrigger: {
+                  trigger: ".showcase-grid",
+                  start: "top 85%",
+                  toggleActions: "play none none none",
+                },
+              },
+            );
+          }
+        }, isReducedMotion ? 0 : 1100); // 等加载动画结束
       } else {
         // CSS fallback
         const revealObserver = new IntersectionObserver(
@@ -1945,80 +2389,99 @@
           .forEach((el) => revealObserver.observe(el));
       }
 
-      // ===== Animated counter (showcase stats) =====
-      const counterObserver = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (!entry.isIntersecting) return;
-            const numEl = entry.target.querySelector(".num");
-            const labelEl = entry.target.querySelector(".label");
-            const target = parseFloat(numEl?.getAttribute("data-target"));
-            const suffix = numEl?.getAttribute("data-suffix") || "";
+      // ===== Animated counter（数字滚动增强版 · 弹跳反馈） =====
+      function animateCounter(numEl, target, suffix) {
+        var duration = 1800;
+        var start = performance.now();
+        numEl.style.opacity = "1";
+        numEl.style.transform = "translateY(0)";
 
-            if (labelEl) {
-              labelEl.style.transition =
-                "opacity 0.6s 0.3s, transform 0.6s 0.3s";
-              labelEl.style.opacity = "1";
-              labelEl.style.transform = "translateY(0)";
-            }
+        function update(now) {
+          var progress = Math.min((now - start) / duration, 1);
+          // ease-out-quart: 更戏剧性的缓动
+          var eased = 1 - Math.pow(1 - progress, 4);
+          numEl.textContent = Math.floor(target * eased) + suffix;
 
-            if (!isNaN(target)) {
-              const duration = 1800;
-              const start = performance.now();
-              numEl.style.opacity = "1";
-              numEl.style.transform = "translateY(0)";
-              function update(now) {
-                const progress = Math.min((now - start) / duration, 1);
-                const eased =
-                  progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-                numEl.textContent = Math.floor(target * eased) + suffix;
-                if (progress < 1) requestAnimationFrame(update);
+          if (progress < 1) {
+            requestAnimationFrame(update);
+          } else {
+            // 到达目标值时弹跳
+            numEl.textContent = target + suffix;
+            numEl.style.transition = "transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1)";
+            numEl.style.transform = "scale(1.12)";
+            setTimeout(function () {
+              numEl.style.transform = "scale(1)";
+            }, 150);
+          }
+        }
+        requestAnimationFrame(update);
+      }
+
+      function initCounters() {
+        var counterObserver = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (!entry.isIntersecting) return;
+              var numEl = entry.target.querySelector(".num");
+              var labelEl = entry.target.querySelector(".label");
+              var target = parseFloat(numEl && numEl.getAttribute("data-target"));
+              var suffix = (numEl && numEl.getAttribute("data-suffix")) || "";
+
+              if (labelEl) {
+                labelEl.style.transition = "opacity 0.6s 0.3s, transform 0.6s 0.3s";
+                labelEl.style.opacity = "1";
+                labelEl.style.transform = "translateY(0)";
               }
-              requestAnimationFrame(update);
+
+              if (!isNaN(target)) {
+                animateCounter(numEl, target, suffix);
+              } else {
+                numEl.style.transition = "opacity 0.8s, transform 0.8s";
+                numEl.style.opacity = "1";
+                numEl.style.transform = "translateY(0)";
+              }
+              counterObserver.unobserve(entry.target);
+            });
+          },
+          { threshold: 0.25 },
+        );
+
+        document.querySelectorAll(".showcase-stat").forEach(function (el) {
+          var numEl = el.querySelector(".num");
+          var labelEl = el.querySelector(".label");
+          if (numEl) {
+            numEl.style.opacity = "0";
+            numEl.style.transform = "translateY(16px)";
+          }
+          if (labelEl) {
+            labelEl.style.opacity = "0";
+            labelEl.style.transform = "translateY(8px)";
+          }
+          counterObserver.observe(el);
+        });
+      }
+
+      // 延迟初始化，等加载动画结束
+      if (isReducedMotion) {
+        initCounters();
+      } else {
+        setTimeout(initCounters, 1100);
+      }
+
+      // Fallback: reveal stats after 5s if not triggered
+      setTimeout(function () {
+        document.querySelectorAll(".showcase-stat").forEach(function (el) {
+          var numEl = el.querySelector(".num");
+          var labelEl = el.querySelector(".label");
+          if (numEl && numEl.style.opacity === "0") {
+            var t = parseFloat(numEl.getAttribute("data-target"));
+            var sfx = numEl.getAttribute("data-suffix") || "";
+            if (!isNaN(t)) {
+              animateCounter(numEl, t, sfx);
             } else {
               numEl.style.transition = "opacity 0.8s, transform 0.8s";
               numEl.style.opacity = "1";
               numEl.style.transform = "translateY(0)";
-            }
-            counterObserver.unobserve(entry.target);
-          });
-        },
-        { threshold: 0.25 },
-      );
-
-      document.querySelectorAll(".showcase-stat").forEach((el) => {
-        const numEl = el.querySelector(".num");
-        const labelEl = el.querySelector(".label");
-        if (numEl) {
-          numEl.style.opacity = "0";
-          numEl.style.transform = "translateY(16px)";
-        }
-        if (labelEl) {
-          labelEl.style.opacity = "0";
-          labelEl.style.transform = "translateY(8px)";
-        }
-        counterObserver.observe(el);
-      });
-
-      // Fallback: reveal stats after 3s if not triggered
-      setTimeout(() => {
-        document.querySelectorAll(".showcase-stat").forEach((el) => {
-          const numEl = el.querySelector(".num");
-          const labelEl = el.querySelector(".label");
-          if (numEl && numEl.style.opacity === "0") {
-            numEl.style.transition = "opacity 0.8s, transform 0.8s";
-            numEl.style.opacity = "1";
-            numEl.style.transform = "translateY(0)";
-            const t = parseFloat(numEl.getAttribute("data-target"));
-            const sfx = numEl.getAttribute("data-suffix") || "";
-            if (!isNaN(t)) {
-              const st = performance.now();
-              (function upd(now) {
-                const prog = Math.min((now - st) / 1800, 1);
-                const easd = prog === 1 ? 1 : 1 - Math.pow(2, -10 * prog);
-                numEl.textContent = Math.floor(t * easd) + sfx;
-                if (prog < 1) requestAnimationFrame(upd);
-              })(st);
             }
           }
           if (labelEl && labelEl.style.opacity === "0") {
@@ -2027,7 +2490,7 @@
             labelEl.style.transform = "translateY(0)";
           }
         });
-      }, 3000);
+      }, 5000);
     </script>
   </body>
 </html>
