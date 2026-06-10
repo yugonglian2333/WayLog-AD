@@ -8,8 +8,8 @@
       name="description"
       content="一路记（WayLog）是一个个人旅行中枢，帮你把旅行计划、每日行程、地点收藏、预算记录和重要备忘收拢到一个地方。"
     />
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
-    <link rel="apple-touch-icon" href="icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon.png" />
+    <link rel="apple-touch-icon" href="assets/images/icon.png" />
 
     <!-- Google Fonts: Lora (editorial serif) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -19,9 +19,20 @@
       rel="stylesheet"
     />
 
-    <!-- GSAP + ScrollTrigger -->
+    <!-- Open Graph / Social Sharing -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="一路记 WayLog — 你最好的旅行中枢" />
+    <meta property="og:description" content="个人旅行控制台，把计划、行程、收藏、预算和备忘收拢到一个地方。" />
+    <meta property="og:image" content="https://waylog.yugonglian.top/assets/images/icon.png" />
+    <meta property="og:url" content="https://waylog.yugonglian.top" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="一路记 WayLog — 你最好的旅行中枢" />
+    <meta name="twitter:description" content="个人旅行控制台，把计划、行程、收藏、预算和备忘收拢到一个地方。" />
+
+    <!-- GSAP + ScrollTrigger + ScrollToPlugin -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
 
     <style>
       /* ===== Reset & Base ===== */
@@ -1386,6 +1397,327 @@
         }
       }
 
+      /* ===== How It Works ===== */
+      .steps-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.5rem;
+        margin-top: 4rem;
+        position: relative;
+      }
+      /* 连接线 */
+      .steps-grid::before {
+        content: "";
+        position: absolute;
+        top: 40px;
+        left: 12.5%;
+        right: 12.5%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--hairline), var(--hairline), transparent);
+        z-index: 0;
+      }
+      .step-card {
+        text-align: center;
+        position: relative;
+        z-index: 1;
+      }
+      .step-number {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: var(--coral-light);
+        border: 1.5px solid rgba(204, 120, 92, 0.2);
+        font-family: "Lora", serif;
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: var(--coral);
+        margin-bottom: 1.15rem;
+        transition: transform 0.4s var(--ease-spring), background 0.3s;
+      }
+      .step-card:hover .step-number {
+        transform: scale(1.1);
+        background: rgba(204, 120, 92, 0.15);
+      }
+      .step-icon {
+        font-size: 1.6rem;
+        margin-bottom: 0.5rem;
+      }
+      .step-card h3 {
+        font-size: 1.05rem;
+        font-weight: 600;
+        letter-spacing: -0.015em;
+        color: var(--ink);
+        margin-bottom: 0.45rem;
+      }
+      .step-card p {
+        color: var(--ink-secondary);
+        font-size: 0.85rem;
+        line-height: 1.6;
+        max-width: 200px;
+        margin: 0 auto;
+        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Noto Sans SC", sans-serif;
+      }
+
+      /* ===== App Showcase ===== */
+      .showcase-app {
+        margin-top: 4rem;
+      }
+      .showcase-row {
+        display: flex;
+        align-items: center;
+        gap: 4rem;
+        margin-bottom: 5rem;
+      }
+      .showcase-row.reverse {
+        flex-direction: row-reverse;
+      }
+      .showcase-row:last-child {
+        margin-bottom: 0;
+      }
+      .showcase-phone {
+        flex-shrink: 0;
+        width: 260px;
+      }
+      .showcase-text {
+        flex: 1;
+      }
+      .showcase-text .section-label {
+        margin-bottom: 0.8rem;
+      }
+      .showcase-text h3 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        color: var(--ink);
+        margin-bottom: 0.75rem;
+      }
+      .showcase-text p {
+        color: var(--ink-secondary);
+        font-size: 0.95rem;
+        line-height: 1.7;
+        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Noto Sans SC", sans-serif;
+      }
+
+      /* 模拟手机外框 */
+      .phone-frame {
+        width: 260px;
+        height: 520px;
+        background: var(--surface);
+        border-radius: 36px;
+        border: 2px solid var(--border-card);
+        box-shadow: var(--shadow-lg), 0 0 0 1px rgba(20, 20, 19, 0.03);
+        overflow: hidden;
+        position: relative;
+        transition: transform 0.5s var(--ease-out-expo), box-shadow 0.5s;
+      }
+      .phone-frame:hover {
+        transform: translateY(-6px) scale(1.01);
+        box-shadow: var(--shadow-lg), 0 16px 48px rgba(20, 20, 19, 0.1), 0 0 0 1px rgba(20, 20, 19, 0.03);
+      }
+      /* 刘海 */
+      .phone-notch {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 120px;
+        height: 26px;
+        background: var(--ink);
+        border-radius: 0 0 16px 16px;
+        z-index: 3;
+      }
+      .phone-notch::after {
+        content: "";
+        position: absolute;
+        top: 8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 8px;
+        height: 8px;
+        background: #333;
+        border-radius: 50%;
+      }
+      /* 状态栏 */
+      .phone-status-bar {
+        height: 44px;
+        padding: 0 20px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        padding-bottom: 6px;
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--ink);
+        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+      }
+      .phone-content {
+        padding: 0 16px 16px;
+        height: calc(100% - 44px);
+        overflow: hidden;
+      }
+      /* 模拟 UI 组件 */
+      .mock-header {
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--ink);
+        margin-bottom: 14px;
+        letter-spacing: -0.02em;
+      }
+      .mock-card {
+        background: var(--surface-warm);
+        border-radius: 12px;
+        padding: 14px;
+        margin-bottom: 10px;
+        border: 0.5px solid rgba(20, 20, 19, 0.05);
+      }
+      .mock-card-title {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--ink);
+        margin-bottom: 4px;
+      }
+      .mock-card-sub {
+        font-size: 11px;
+        color: var(--ink-tertiary);
+      }
+      .mock-badge {
+        display: inline-block;
+        font-size: 10px;
+        font-weight: 600;
+        padding: 2px 8px;
+        border-radius: 999px;
+        margin-right: 4px;
+      }
+      .mock-badge.coral { background: var(--coral-light); color: var(--coral); }
+      .mock-badge.green { background: var(--green-light); color: var(--green); }
+      .mock-badge.blue { background: var(--blue-light); color: var(--blue); }
+      .mock-timeline {
+        position: relative;
+        padding-left: 16px;
+      }
+      .mock-timeline::before {
+        content: "";
+        position: absolute;
+        left: 4px;
+        top: 4px;
+        bottom: 4px;
+        width: 1.5px;
+        background: var(--hairline);
+      }
+      .mock-timeline-item {
+        position: relative;
+        padding: 8px 0;
+      }
+      .mock-timeline-item::before {
+        content: "";
+        position: absolute;
+        left: -16px;
+        top: 14px;
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--coral);
+        border: 2px solid var(--surface);
+        box-shadow: 0 0 0 1px var(--coral);
+      }
+      .mock-timeline-time {
+        font-size: 10px;
+        color: var(--coral);
+        font-weight: 600;
+        margin-bottom: 2px;
+      }
+      .mock-timeline-title {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--ink);
+      }
+      .mock-timeline-sub {
+        font-size: 10px;
+        color: var(--ink-tertiary);
+      }
+      .mock-detail-hero {
+        height: 120px;
+        background: linear-gradient(135deg, var(--coral-light), var(--blue-light));
+        border-radius: 10px;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: flex-end;
+        padding: 10px;
+      }
+      .mock-detail-hero-text {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--ink);
+      }
+      .mock-ai-bubble {
+        background: var(--surface-warm);
+        border-radius: 12px;
+        padding: 12px;
+        border-left: 3px solid var(--coral);
+        margin-bottom: 10px;
+      }
+      .mock-ai-label {
+        font-size: 10px;
+        font-weight: 600;
+        color: var(--coral);
+        margin-bottom: 4px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .mock-ai-text {
+        font-size: 11px;
+        color: var(--ink-secondary);
+        line-height: 1.5;
+      }
+      .mock-stats-row {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 10px;
+      }
+      .mock-stat-box {
+        flex: 1;
+        background: var(--surface-warm);
+        border-radius: 10px;
+        padding: 10px;
+        text-align: center;
+      }
+      .mock-stat-num {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--coral);
+        font-family: "Lora", serif;
+      }
+      .mock-stat-label {
+        font-size: 9px;
+        color: var(--ink-tertiary);
+        margin-top: 2px;
+      }
+
+      @media (max-width: 768px) {
+        .steps-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 2rem 1.5rem;
+        }
+        .steps-grid::before { display: none; }
+        .showcase-row,
+        .showcase-row.reverse {
+          flex-direction: column;
+          gap: 2rem;
+          text-align: center;
+        }
+        .showcase-phone {
+          width: 220px;
+        }
+        .phone-frame {
+          width: 220px;
+          height: 440px;
+        }
+      }
+
       /* ===== 动效降级 ===== */
       @media (prefers-reduced-motion: reduce) {
         .loader-overlay { display: none; }
@@ -1412,7 +1744,7 @@
       <div class="nav-inner">
         <a href="#" class="nav-logo">
           <img
-            src="icon.png"
+            src="assets/images/icon.png"
             alt="一路记"
             onerror="
               this.style.display = 'none';
@@ -1424,6 +1756,7 @@
         <ul class="nav-links">
           <li><a href="#features">功能</a></li>
           <li><a href="#tech">技术</a></li>
+          <li><a href="#roadmap">路线图</a></li>
           <li><a href="#download" class="nav-cta">下载应用</a></li>
         </ul>
       </div>
@@ -1552,7 +1885,7 @@
       </div>
 
       <div class="hero-content">
-        <div class="hero-badge">◉ 旅行中枢 · v1.0 · Android / iOS / Web</div>
+        <div class="hero-badge">◉ 旅行中枢 · v2026.06 · Android / iOS / Web</div>
         <h1>
           你的旅行<br />需要一个
           <span class="rotating-line">
@@ -1575,7 +1908,7 @@
           </span>
         </h1>
         <p class="hero-subtitle">
-          一路记 WayLog 是个人旅行控制台，也是你的旅行手账。<br />把计划、行程、收藏、预算和备忘收拢到一个地方——不再散落在备忘录、聊天记录和截图里。
+          一路记 WayLog 是个人旅行控制台，也是你的旅行手账。<br />把计划、行程、收藏、预算和备忘收拢到一个地方——<br />AI 为你写简介，数据实时同步，不再散落在备忘录和截图里。
         </p>
         <div class="hero-actions">
           <a href="#download" class="btn btn-primary">
@@ -1647,12 +1980,51 @@
       </div>
     </section>
 
+    <!-- How It Works -->
+    <section class="section section--warm" id="how-it-works">
+      <div class="section-inner">
+        <div class="section-label reveal">简单四步</div>
+        <h2 class="section-title reveal reveal-delay-1">
+          从想法到旅程，<br />只需四步
+        </h2>
+        <p class="section-desc reveal reveal-delay-2">
+          不需要学习复杂的工具，一路记让旅行规划变得自然流畅。
+        </p>
+        <div class="steps-grid">
+          <div class="step-card reveal reveal-delay-1">
+            <div class="step-number">1</div>
+            <div class="step-icon">📝</div>
+            <h3>创建行程</h3>
+            <p>输入目的地和日期，一键创建旅行框架</p>
+          </div>
+          <div class="step-card reveal reveal-delay-2">
+            <div class="step-number">2</div>
+            <div class="step-icon">📅</div>
+            <h3>规划每日</h3>
+            <p>按天添加地点、安排时间、设置预算</p>
+          </div>
+          <div class="step-card reveal reveal-delay-3">
+            <div class="step-number">3</div>
+            <div class="step-icon">🚀</div>
+            <h3>边走边记</h3>
+            <p>旅途中实时记录花费、添加备忘、查看路线</p>
+          </div>
+          <div class="step-card reveal reveal-delay-4">
+            <div class="step-number">4</div>
+            <div class="step-icon">📔</div>
+            <h3>回顾旅程</h3>
+            <p>查看旅行总结、费用统计、重温旅途记忆</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Features -->
-    <section class="section section--warm" id="features">
+    <section class="section section--white" id="features">
       <div class="section-inner">
         <div class="section-label reveal">核心功能</div>
         <h2 class="section-title reveal reveal-delay-1">
-          覆盖旅行全流程<br />10 大功能模块
+          覆盖旅行全流程<br />12 大功能模块
         </h2>
         <p class="section-desc reveal reveal-delay-2">
           从规划到出发，从记录到回顾，一路记覆盖了旅行中最常用的每一个场景。
@@ -1732,6 +2104,27 @@
                 天气，在应用内查看位置、天气和路线，规划更直观。
               </p>
             </div>
+            <div class="feature-card card">
+              <div class="feature-icon coral">🤖</div>
+              <h3>AI 智能简介</h3>
+              <p>
+                DeepSeek 大模型为景点生成旅行风格介绍，四层缓存策略，全用户云端共享。
+              </p>
+            </div>
+            <div class="feature-card card">
+              <div class="feature-icon blue">🔄</div>
+              <h3>实时同步</h3>
+              <p>
+                Supabase Realtime WebSocket + 页面聚焦刷新 + 定时轮询，三重保障多设备数据一致。
+              </p>
+            </div>
+            <div class="feature-card card">
+              <div class="feature-icon green">✨</div>
+              <h3>精致体验</h3>
+              <p>
+                弹性缩放、触觉反馈、毛玻璃效果、下拉关闭手势、交错入场动画，每一处交互都精心打磨。
+              </p>
+            </div>
           </div>
           <div class="scroll-fade-right visible" id="fadeRight"></div>
           <button class="scroll-arrow scroll-arrow-right visible" id="scrollArrowRight" aria-label="向右滚动">
@@ -1741,16 +2134,160 @@
       </div>
     </section>
 
+    <!-- App Showcase -->
+    <section class="section section--warm" id="app-preview">
+      <div class="section-inner">
+        <div class="section-label reveal">应用预览</div>
+        <h2 class="section-title reveal reveal-delay-1">
+          精心设计的<br />每一个画面
+        </h2>
+        <p class="section-desc reveal reveal-delay-2">
+          简洁直观的界面，让旅行管理变得轻松愉快。
+        </p>
+        <div class="showcase-app">
+          <!-- 第 1 组：行程列表 -->
+          <div class="showcase-row reveal">
+            <div class="showcase-phone">
+              <div class="phone-frame">
+                <div class="phone-notch"></div>
+                <div class="phone-status-bar">
+                  <span>9:41</span>
+                  <span>●●●</span>
+                </div>
+                <div class="phone-content">
+                  <div class="mock-header">我的旅行</div>
+                  <div class="mock-card">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                      <div class="mock-card-title">🗼 东京之旅</div>
+                      <span class="mock-badge coral">旅途中</span>
+                    </div>
+                    <div class="mock-card-sub">6月10日 - 6月17日 · 东京</div>
+                  </div>
+                  <div class="mock-card">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                      <div class="mock-card-title">🏔️ 西安古都游</div>
+                      <span class="mock-badge green">已完成</span>
+                    </div>
+                    <div class="mock-card-sub">5月1日 - 5月4日 · 西安</div>
+                  </div>
+                  <div class="mock-card">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                      <div class="mock-card-title">🌊 三亚度假</div>
+                      <span class="mock-badge blue">计划中</span>
+                    </div>
+                    <div class="mock-card-sub">8月15日 - 8月20日 · 三亚</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="showcase-text">
+              <div class="section-label">旅行一览无余</div>
+              <h3>三种状态，清晰管理</h3>
+              <p>计划中、旅途中、已完成，三种状态一目了然。置顶重要行程，打开应用就能看到该看的。</p>
+            </div>
+          </div>
+
+          <!-- 第 2 组：每日行程 -->
+          <div class="showcase-row reverse reveal">
+            <div class="showcase-phone">
+              <div class="phone-frame">
+                <div class="phone-notch"></div>
+                <div class="phone-status-bar">
+                  <span>9:41</span>
+                  <span>●●●</span>
+                </div>
+                <div class="phone-content">
+                  <div class="mock-header">Day 3 · 京都</div>
+                  <div class="mock-stats-row">
+                    <div class="mock-stat-box">
+                      <div class="mock-stat-num">4</div>
+                      <div class="mock-stat-label">地点</div>
+                    </div>
+                    <div class="mock-stat-box">
+                      <div class="mock-stat-num">¥386</div>
+                      <div class="mock-stat-label">今日花费</div>
+                    </div>
+                  </div>
+                  <div class="mock-timeline">
+                    <div class="mock-timeline-item">
+                      <div class="mock-timeline-time">09:00</div>
+                      <div class="mock-timeline-title">伏见稻荷大社</div>
+                      <div class="mock-timeline-sub">千本鸟居 · 预计 2 小时</div>
+                    </div>
+                    <div class="mock-timeline-item">
+                      <div class="mock-timeline-time">12:00</div>
+                      <div class="mock-timeline-title">锦市场午餐</div>
+                      <div class="mock-timeline-sub">京都厨房 · ¥120</div>
+                    </div>
+                    <div class="mock-timeline-item">
+                      <div class="mock-timeline-time">14:30</div>
+                      <div class="mock-timeline-title">金阁寺</div>
+                      <div class="mock-timeline-sub">世界文化遗产 · ¥40</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="showcase-text">
+              <div class="section-label">按天组织行程</div>
+              <h3>时间线一目了然</h3>
+              <p>按日期组织每天的行程，时间、地点、花费清晰排列。今日概览让你随时掌握进度。</p>
+            </div>
+          </div>
+
+          <!-- 第 3 组：AI 简介 + 地点详情 -->
+          <div class="showcase-row reveal">
+            <div class="showcase-phone">
+              <div class="phone-frame">
+                <div class="phone-notch"></div>
+                <div class="phone-status-bar">
+                  <span>9:41</span>
+                  <span>●●●</span>
+                </div>
+                <div class="phone-content">
+                  <div class="mock-detail-hero">
+                    <div class="mock-detail-hero-text">⛩️ 伏见稻荷大社</div>
+                  </div>
+                  <div class="mock-ai-bubble">
+                    <div class="mock-ai-label">✨ AI 简介</div>
+                    <div class="mock-ai-text">伏见稻荷大社是京都最具代表性的神社，以千本鸟居闻名。朱红色的鸟居隧道蜿蜒于稻荷山间，是摄影爱好者的天堂……</div>
+                  </div>
+                  <div class="mock-stats-row">
+                    <div class="mock-stat-box">
+                      <div class="mock-stat-num">4.8</div>
+                      <div class="mock-stat-label">评分</div>
+                    </div>
+                    <div class="mock-stat-box">
+                      <div class="mock-stat-num">2h</div>
+                      <div class="mock-stat-label">建议时长</div>
+                    </div>
+                    <div class="mock-stat-box">
+                      <div class="mock-stat-num">免费</div>
+                      <div class="mock-stat-label">门票</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="showcase-text">
+              <div class="section-label">AI 赋能旅行</div>
+              <h3>大模型为你写简介</h3>
+              <p>DeepSeek 大模型为每个景点生成旅行风格介绍，四层缓存策略确保秒级加载，全用户云端共享减少重复调用。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Architecture -->
     <section class="section section--white" id="architecture">
       <div class="section-inner">
         <div class="section-label reveal">技术架构</div>
         <h2 class="section-title reveal reveal-delay-1">
-          本地优先，<br />云端加持
+          本地优先，<br />云端实时加持
         </h2>
         <p class="section-desc reveal reveal-delay-2">
-          所有操作先写入本地存储，确保离线可用；后台自动增量同步到 Supabase
-          云端，跨设备无缝衔接。
+          所有操作先写入本地存储，确保离线可用；通过 Realtime WebSocket + 页面聚焦 + 定时轮询三重机制，跨设备数据实时同步。
         </p>
         <div class="arch-flow">
           <div class="arch-node reveal reveal-delay-1">
@@ -1760,15 +2297,15 @@
           </div>
           <div class="arch-arrow reveal reveal-delay-2">→</div>
           <div class="arch-node reveal reveal-delay-2">
-            <div class="arch-icon">🔄</div>
-            <h4>增量同步</h4>
-            <p>upsert + 版本检测<br />冲突自动处理</p>
+            <div class="arch-icon">⚡</div>
+            <h4>实时同步</h4>
+            <p>Realtime + 聚焦 + 轮询<br />三重保障机制</p>
           </div>
           <div class="arch-arrow reveal reveal-delay-3">→</div>
           <div class="arch-node reveal reveal-delay-3">
             <div class="arch-icon">☁️</div>
             <h4>云端保障</h4>
-            <p>Supabase RLS<br />数据安全隔离</p>
+            <p>Supabase RLS + POI 缓存<br />数据安全隔离</p>
           </div>
         </div>
       </div>
@@ -1781,7 +2318,7 @@
         <h2 class="section-title reveal reveal-delay-1">用数字说话</h2>
         <p class="section-desc reveal reveal-delay-2">
           基于 React Native + Expo 构建，一套代码覆盖三端，全链路 TypeScript
-          类型安全。
+          类型安全，AI 驱动的智能旅行体验。
         </p>
         <div class="showcase-grid">
           <div class="showcase-stat">
@@ -1793,7 +2330,7 @@
             <div class="label">TypeScript 全量类型覆盖</div>
           </div>
           <div class="showcase-stat">
-            <div class="num count" data-target="19" data-suffix="">0</div>
+            <div class="num count" data-target="26" data-suffix="">0</div>
             <div class="label">地点图标类型</div>
           </div>
           <div class="showcase-stat">
@@ -1813,7 +2350,7 @@
     </section>
 
     <!-- Tech Stack -->
-    <section class="section section--white" id="tech">
+    <section class="section section--warm" id="tech">
       <div class="section-inner">
         <div class="section-label reveal">技术栈</div>
         <h2 class="section-title reveal reveal-delay-1">精选每一层技术</h2>
@@ -1861,12 +2398,32 @@
             <h4>Deno Edge Functions</h4>
             <p>安全的服务端代理与桥接</p>
           </div>
+          <div class="tech-card card reveal reveal-delay-1">
+            <div class="tech-icon">✨</div>
+            <h4>Reanimated</h4>
+            <p>弹性缩放与交错动画引擎</p>
+          </div>
+          <div class="tech-card card reveal reveal-delay-2">
+            <div class="tech-icon">👆</div>
+            <h4>expo-haptics</h4>
+            <p>14 处交互触觉反馈</p>
+          </div>
+          <div class="tech-card card reveal reveal-delay-3">
+            <div class="tech-icon">🌫️</div>
+            <h4>expo-blur</h4>
+            <p>iOS 原生毛玻璃效果</p>
+          </div>
+          <div class="tech-card card reveal reveal-delay-4">
+            <div class="tech-icon">🤖</div>
+            <h4>DeepSeek LLM</h4>
+            <p>大模型驱动的智能旅行简介</p>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- Roadmap -->
-    <section class="section section--warm" id="roadmap">
+    <section class="section section--white" id="roadmap">
       <div class="section-inner">
         <div class="section-label reveal">产品路线图</div>
         <h2 class="section-title reveal reveal-delay-1">持续进化中</h2>
@@ -1889,16 +2446,22 @@
               <span class="check">✓</span> 预算记账（7 种分类）
             </div>
             <div class="roadmap-item">
-              <span class="check">✓</span> 交通安排与住宿管理
-            </div>
-            <div class="roadmap-item">
-              <span class="check">✓</span> 打包清单与备忘
-            </div>
-            <div class="roadmap-item">
               <span class="check">✓</span> 4 种登录 + 云同步
             </div>
             <div class="roadmap-item">
-              <span class="check">✓</span> 地图 / 天气 / 全局搜索
+              <span class="check">✓</span> 多设备实时同步（Realtime）
+            </div>
+            <div class="roadmap-item">
+              <span class="check">✓</span> POI 公共缓存（云端共享）
+            </div>
+            <div class="roadmap-item">
+              <span class="check">✓</span> AI 深度简介（LLM 生成）
+            </div>
+            <div class="roadmap-item">
+              <span class="check">✓</span> UI 动效升级（弹性/触觉/毛玻璃）
+            </div>
+            <div class="roadmap-item">
+              <span class="check">✓</span> 应用内更新 + 诊断日志
             </div>
           </div>
           <div class="roadmap-col reveal reveal-delay-2">
@@ -1913,13 +2476,13 @@
               <span class="arrow-icon">→</span> 行前清单完善
             </div>
             <div class="roadmap-item">
-              <span class="arrow-icon">→</span> 地图视图增强
-            </div>
-            <div class="roadmap-item">
               <span class="arrow-icon">→</span> 旅行日记与回顾
             </div>
             <div class="roadmap-item">
-              <span class="arrow-icon">→</span> 公共 POI 内容库
+              <span class="arrow-icon">→</span> 独立记账系统
+            </div>
+            <div class="roadmap-item">
+              <span class="arrow-icon">→</span> AA 分账与协作
             </div>
             <div class="roadmap-item">
               <span class="arrow-icon">→</span> iOS 版本发布
@@ -1933,12 +2496,13 @@
     </section>
 
     <!-- Download -->
-    <section class="section section--white download" id="download">
+    <section class="section section--warm download" id="download">
       <div class="section-inner">
         <div class="section-label reveal">开始使用</div>
         <h2 class="section-title reveal reveal-delay-1">下载一路记</h2>
         <p class="section-desc reveal reveal-delay-2" style="margin: 0 auto">
-          目前提供 Android APK 安装包，iOS 和 Web 版本即将到来。
+          目前提供 Android APK 安装包，iOS 和 Web 版本即将到来。<br />
+          <span style="font-size: 0.85rem; color: var(--ink-tertiary);">完全免费，无广告，无需注册即可使用。</span>
         </p>
         <div class="download-card reveal reveal-delay-3">
           <h3
@@ -2037,9 +2601,12 @@
               >蒲公英下载</a
             >
           </li>
-          <li><a href="mailto:yugonglian@example.com">联系我们</a></li>
+          <li><a href="mailto:1070881879@qq.com">联系我们</a></li>
+          <li><a href="#features">功能介绍</a></li>
+          <li><a href="#roadmap">产品路线图</a></li>
         </ul>
-        <p>© 2026 一路记 WayLog · 让每一次旅行都有迹可循</p>
+        <p style="margin-bottom: 0.5rem">© 2026 一路记 WayLog · 让每一次旅行都有迹可循</p>
+        <p style="font-size: 0.72rem; opacity: 0.5;">版本 v2026.06.10 · 基于 React Native + Expo + Supabase 构建</p>
       </div>
     </footer>
 
@@ -2293,6 +2860,9 @@
         !isReducedMotion
       ) {
         gsap.registerPlugin(ScrollTrigger);
+        if (typeof ScrollToPlugin !== "undefined") {
+          gsap.registerPlugin(ScrollToPlugin);
+        }
 
         // 等待加载动画结束后再初始化滚动动画
         setTimeout(function () {
