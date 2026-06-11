@@ -189,9 +189,24 @@
         font-family:
           -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC",
           "Noto Sans SC", sans-serif;
+        position: relative;
+      }
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--coral);
+        border-radius: 1px;
+        transition: width 0.3s var(--ease-out-expo);
       }
       .nav-links a:hover {
         color: var(--ink);
+      }
+      .nav-links a:hover::after {
+        width: 100%;
       }
       .nav-cta {
         background: var(--coral);
@@ -579,10 +594,15 @@
         position: relative;
         overflow: hidden;
         transition:
-          transform 0.4s var(--ease-out-expo),
+          transform 0.1s ease,
           border-color 0.4s var(--ease-smooth),
           box-shadow 0.4s var(--ease-smooth);
         box-shadow: var(--shadow-xs);
+        transform-style: preserve-3d;
+        perspective: 1000px;
+      }
+      .card.tilt-active {
+        transition: transform 0.05s ease, border-color 0.4s, box-shadow 0.4s;
       }
       /* 卡片顶部微妙的亮边 */
       .card::after {
@@ -825,6 +845,79 @@
         overflow: hidden;
         position: relative;
       }
+
+      /* 统计条无限滚动 */
+      .showcase-marquee {
+        margin-top: 4rem;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+      }
+      /* 两侧渐变遮罩 */
+      .showcase-marquee::before,
+      .showcase-marquee::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100px;
+        z-index: 2;
+        pointer-events: none;
+      }
+      .showcase-marquee::before {
+        left: 0;
+        background: linear-gradient(90deg, var(--surface-dark), transparent);
+      }
+      .showcase-marquee::after {
+        right: 0;
+        background: linear-gradient(270deg, var(--surface-dark), transparent);
+      }
+      .marquee-track {
+        display: flex;
+        gap: 2rem;
+        animation: marqueeScroll 35s linear infinite;
+        width: max-content;
+        will-change: transform;
+      }
+      .marquee-track:hover {
+        animation-play-state: paused;
+      }
+      @keyframes marqueeScroll {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(calc(-50% - 1rem)); }
+      }
+      .marquee-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        white-space: nowrap;
+        padding: 1rem 2rem;
+        background: rgba(250, 249, 245, 0.04);
+        border: 0.5px solid rgba(250, 249, 245, 0.08);
+        border-radius: var(--radius-lg);
+        transition: background 0.3s, border-color 0.3s;
+        cursor: default;
+      }
+      .marquee-item:hover {
+        background: rgba(250, 249, 245, 0.08);
+        border-color: rgba(204, 120, 92, 0.3);
+      }
+      .marquee-item .num {
+        font-size: 2.5rem;
+        font-weight: 400;
+        letter-spacing: -0.03em;
+        color: var(--coral);
+        font-variant-numeric: tabular-nums;
+        font-family: "Lora", "Noto Serif SC", Georgia, serif;
+      }
+      .marquee-item .label {
+        color: rgba(250, 249, 245, 0.5);
+        font-size: 0.85rem;
+        text-align: left;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC",
+          "Noto Sans SC", sans-serif;
+      }
       .showcase::before {
         content: "";
         position: absolute;
@@ -845,6 +938,8 @@
       .showcase .section-inner {
         position: relative;
         z-index: 1;
+        max-width: 100%;
+        padding: 0;
       }
       .showcase .section-label {
         color: rgba(250, 249, 245, 0.45);
@@ -1718,14 +1813,37 @@
         }
       }
 
+      /* ===== 滚动进度条 ===== */
+      .scroll-progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 3px;
+        background: linear-gradient(90deg, var(--coral), #e09070, var(--coral));
+        background-size: 200% 100%;
+        animation: progressShimmer 2s ease-in-out infinite;
+        z-index: 9999;
+        transition: width 0.1s ease;
+        box-shadow: 0 0 10px rgba(204, 120, 92, 0.5);
+      }
+      @keyframes progressShimmer {
+        0%, 100% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+      }
+
       /* ===== 动效降级 ===== */
       @media (prefers-reduced-motion: reduce) {
         .loader-overlay { display: none; }
         .hero-glow { display: none; }
+        .scroll-progress { display: none; }
       }
     </style>
   </head>
   <body>
+    <!-- ===== 滚动进度条 ===== -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
     <!-- ===== 品牌加载动画 ===== -->
     <div class="loader-overlay" id="loaderOverlay">
       <div class="loader-brand">
@@ -2313,37 +2431,67 @@
 
     <!-- Stats / Showcase -->
     <section class="showcase" id="showcase">
-      <div class="section-inner">
+      <div class="section-inner" style="text-align: center;">
         <div class="section-label reveal">技术实力</div>
         <h2 class="section-title reveal reveal-delay-1">用数字说话</h2>
-        <p class="section-desc reveal reveal-delay-2">
+        <p class="section-desc reveal reveal-delay-2" style="margin: 0 auto;">
           基于 React Native + Expo 构建，一套代码覆盖三端，全链路 TypeScript
           类型安全，AI 驱动的智能旅行体验。
         </p>
-        <div class="showcase-grid">
-          <div class="showcase-stat">
-            <div class="num count" data-target="3" data-suffix="">0</div>
-            <div class="label">平台覆盖 · iOS / Android / Web</div>
-          </div>
-          <div class="showcase-stat">
-            <div class="num count" data-target="100" data-suffix="%">0</div>
-            <div class="label">TypeScript 全量类型覆盖</div>
-          </div>
-          <div class="showcase-stat">
-            <div class="num count" data-target="26" data-suffix="">0</div>
-            <div class="label">地点图标类型</div>
-          </div>
-          <div class="showcase-stat">
-            <div class="num count" data-target="7" data-suffix="">0</div>
-            <div class="label">费用分类覆盖</div>
-          </div>
-          <div class="showcase-stat">
-            <div class="num count" data-target="4" data-suffix="">0</div>
-            <div class="label">登录方式支持</div>
-          </div>
-          <div class="showcase-stat">
-            <div class="num text-stat">3 档</div>
-            <div class="label">浅色 / 深色 / 跟随系统主题</div>
+
+        <!-- 统计条无限滚动 -->
+        <div class="showcase-marquee reveal reveal-delay-3">
+          <div class="marquee-track" id="marqueeTrack">
+            <!-- 第一遍 -->
+            <div class="marquee-item">
+              <div class="num" data-target="3">0</div>
+              <div class="label">平台覆盖<br>iOS / Android / Web</div>
+            </div>
+            <div class="marquee-item">
+              <div class="num" data-target="100" data-suffix="%">0</div>
+              <div class="label">TypeScript<br>全量类型覆盖</div>
+            </div>
+            <div class="marquee-item">
+              <div class="num" data-target="26">0</div>
+              <div class="label">地点图标<br>类型覆盖</div>
+            </div>
+            <div class="marquee-item">
+              <div class="num" data-target="7">0</div>
+              <div class="label">费用分类<br>精准覆盖</div>
+            </div>
+            <div class="marquee-item">
+              <div class="num" data-target="4">0</div>
+              <div class="label">登录方式<br>灵活选择</div>
+            </div>
+            <div class="marquee-item">
+              <div class="num">3 档</div>
+              <div class="label">主题模式<br>浅色 / 深色 / 跟随</div>
+            </div>
+            <!-- 第二遍（重复实现无缝循环） -->
+            <div class="marquee-item">
+              <div class="num" data-target="3">0</div>
+              <div class="label">平台覆盖<br>iOS / Android / Web</div>
+            </div>
+            <div class="marquee-item">
+              <div class="num" data-target="100" data-suffix="%">0</div>
+              <div class="label">TypeScript<br>全量类型覆盖</div>
+            </div>
+            <div class="marquee-item">
+              <div class="num" data-target="26">0</div>
+              <div class="label">地点图标<br>类型覆盖</div>
+            </div>
+            <div class="marquee-item">
+              <div class="num" data-target="7">0</div>
+              <div class="label">费用分类<br>精准覆盖</div>
+            </div>
+            <div class="marquee-item">
+              <div class="num" data-target="4">0</div>
+              <div class="label">登录方式<br>灵活选择</div>
+            </div>
+            <div class="marquee-item">
+              <div class="num">3 档</div>
+              <div class="label">主题模式<br>浅色 / 深色 / 跟随</div>
+            </div>
           </div>
         </div>
       </div>
@@ -2630,6 +2778,18 @@
         }, 1000);
       })();
 
+      // ===== 滚动进度条 =====
+      const scrollProgress = document.getElementById("scrollProgress");
+      function updateScrollProgress() {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = (scrollTop / docHeight) * 100;
+        if (scrollProgress) {
+          scrollProgress.style.width = scrollPercent + "%";
+        }
+      }
+      window.addEventListener("scroll", updateScrollProgress, { passive: true });
+
       // ===== Nav scroll effect =====
       const nav = document.getElementById("nav");
       function updateNav() {
@@ -2742,6 +2902,40 @@
         });
         hero.addEventListener("mouseleave", function () {
           glow.style.opacity = "0";
+        });
+      })();
+
+      // ===== 卡片 3D 视差效果 =====
+      (function initCardTilt() {
+        if (isReducedMotion) return;
+
+        var cards = document.querySelectorAll('.card');
+        cards.forEach(function(card) {
+          card.addEventListener('mousemove', function(e) {
+            var rect = card.getBoundingClientRect();
+            var x = e.clientX - rect.left;
+            var y = e.clientY - rect.top;
+            var centerX = rect.width / 2;
+            var centerY = rect.height / 2;
+
+            // 计算倾斜角度（最大 ±8 度）
+            var rotateX = ((y - centerY) / centerY) * -8;
+            var rotateY = ((x - centerX) / centerX) * 8;
+
+            card.classList.add('tilt-active');
+            card.style.transform = 'perspective(1000px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) scale(1.02)';
+
+            // 光泽效果
+            var glareX = (x / rect.width) * 100;
+            var glareY = (y / rect.height) * 100;
+            card.style.background = 'radial-gradient(circle at ' + glareX + '% ' + glareY + '%, rgba(255,255,255,0.15), var(--surface) 50%)';
+          });
+
+          card.addEventListener('mouseleave', function() {
+            card.classList.remove('tilt-active');
+            card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)';
+            card.style.background = 'var(--surface)';
+          });
         });
       })();
 
@@ -2866,7 +3060,8 @@
 
         // 等待加载动画结束后再初始化滚动动画
         setTimeout(function () {
-          document.querySelectorAll(".section").forEach((section) => {
+          // 同时处理 .section 和 .showcase 区域
+          document.querySelectorAll(".section, .showcase").forEach((section) => {
             const reveals = section.querySelectorAll(".reveal");
             if (!reveals.length) return;
 
@@ -3016,7 +3211,9 @@
           { threshold: 0.25 },
         );
 
-        document.querySelectorAll(".showcase-stat").forEach(function (el) {
+        // 兼容新的 marquee 结构和旧的 showcase-stat 结构
+        var counterElements = document.querySelectorAll(".marquee-item, .showcase-stat");
+        counterElements.forEach(function (el) {
           var numEl = el.querySelector(".num");
           var labelEl = el.querySelector(".label");
           if (numEl) {
